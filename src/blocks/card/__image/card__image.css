@@ -1,0 +1,17 @@
+.card__image {
+  display: block;
+  width: 100%;
+  height: 282px;
+  border-radius: 10px 10px 0px 0px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: object-position 0.8s ease-in-out;
+  -webkit-transition: object-position 0.8s ease-in-out;
+  -moz-transition: object-position 0.8s ease-in-out;
+  -ms-transition: object-position 0.8s ease-in-out;
+  -o-transition: object-position 0.8s ease-in-out;
+}
+
+.card__image:hover {
+  object-position: 53% 53%;
+}

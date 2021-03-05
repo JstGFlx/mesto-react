@@ -1,0 +1,58 @@
+import React from "react";
+
+function Main() {
+  return (
+    <main>
+      <section className='profile'>
+        <div className='profile__container'>
+          <div className='load-wraper load-wraper_type_avatar'>
+            <div className='load-wraper__activity'></div>
+          </div>
+          <div className='profile__avatar'></div>
+          <div className='profile__info'>
+            <div className='load-wraper load-wraper_type_name'>
+              <div className='load-wraper__activity'></div>
+            </div>
+            <h1 className='profile__name'>Жак-Ив Кусто</h1>
+            <button
+              className='btn btn_type_edit'
+              type='button'
+              aria-label='изменить'
+            ></button>
+            <div className='load-wraper load-wraper_type_about'>
+              <div className='load-wraper__activity'></div>
+            </div>
+            <p className='profile__about-me'>Исследователь океана</p>
+          </div>
+        </div>
+        <button
+          className='btn btn_type_add'
+          type='button'
+          aria-label='добавить'
+        ></button>
+      </section>
+      <section className='cards'>
+        <div className='load-wraper load-wraper_type_card'>
+          <div className='load-wraper__activity'></div>
+        </div>
+        <div className='load-wraper load-wraper_type_card'>
+          <div className='load-wraper__activity'></div>
+        </div>
+        <div className='load-wraper load-wraper_type_card'>
+          <div className='load-wraper__activity'></div>
+        </div>
+        <div className='load-wraper load-wraper_type_card'>
+          <div className='load-wraper__activity'></div>
+        </div>
+        <div className='load-wraper load-wraper_type_card'>
+          <div className='load-wraper__activity'></div>
+        </div>
+        <div className='load-wraper load-wraper_type_card'>
+          <div className='load-wraper__activity'></div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+export default Main;
