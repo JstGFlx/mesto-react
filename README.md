@@ -17,4 +17,4 @@
 - Интерактивный попап добавления новых карточек
 - Адаптивная верстка
 
-[cсылка на проект](https://jstgflx.github.io/mesto/)
+[cсылка на проект](https://jstgflx.github.io/mesto-react/)
