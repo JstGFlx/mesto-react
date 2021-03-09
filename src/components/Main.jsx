@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../utils/api";
-import Card from "../components/Card";
+import Card from "./Card.jsx";
 import { showErrorMassage } from "../utils/utils";
 
 function Main(props) {
