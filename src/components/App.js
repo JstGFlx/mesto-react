@@ -38,29 +38,8 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
       />
       <Footer />
-      <template className='template'>
-        <article className='card'>
-          <button
-            className='btn btn_type_delete'
-            type='button'
-            aria-label='удалить'
-          ></button>
-          <img className='card__image' src='#' alt='#' />
-          <div className='card__block'>
-            <h2 className='card__name'>123</h2>
-            <div className='card_like-container'>
-              <button
-                className='card__like'
-                type='button'
-                aria-label='мне нравится'
-              ></button>
-              <p className='card__like-counter'></p>
-            </div>
-          </div>
-        </article>
-      </template>
       <PopupWithForm
-        id={0}
+        key={0}
         name='edit'
         title='Редактировать профиль'
         isOpen={isEditProfilePopupOpen}
@@ -98,7 +77,7 @@ function App() {
         </button>
       </PopupWithForm>
       <PopupWithForm
-        id={1}
+        key={1}
         name='add'
         title='Новое место'
         isOpen={isAddPlacePopupOpen}
@@ -133,7 +112,7 @@ function App() {
         </button>
       </PopupWithForm>
       <PopupWithForm
-        id={2}
+        key={2}
         name='avatar'
         title='Обновить аватар'
         isOpen={isEditAvatarPopupOpen}
@@ -157,7 +136,7 @@ function App() {
         </button>
       </PopupWithForm>
       <PopupWithForm
-        id={3}
+        key={3}
         name='delete'
         title='Вы уверены?'
         onClose={closeAllPopups}
