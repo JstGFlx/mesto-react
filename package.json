@@ -1,5 +1,7 @@
 {
   "name": "mesto-react",
+  "author": "Evgeny Geyer <evgeny.geyer@ya.ru>",
+  "description": "В этом проекте вы найдете интерактивную страницу с карточками фотографий и графой профиля.",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
