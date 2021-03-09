@@ -1,29 +1,24 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import api from "../utils/Api";
 import Card from "../components/Card";
+import { showErrorMassage } from "../utils/utils";
 
 function Main(props) {
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
-  const [cards, setCards] = React.useState([]);
-  let userId;
+  const [userName, setUserName] = useState();
+  const [userDescription, setUserDescription] = useState();
+  const [userAvatar, setUserAvatar] = useState();
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([info, cards]) => {
-        userId = info._id;
         setUserName(info.name);
         setUserDescription(info.about);
         setUserAvatar(info.avatar);
-        console.log(cards);
         setCards(cards);
       })
       .catch((err) => {
-        //showErrorMassage(err);
-      })
-      .finally(() => {
-        //displayLoadWrapper(false);
+        showErrorMassage(err);
       });
   }, []);
 

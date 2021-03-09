@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
@@ -7,13 +7,10 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
-    false
-  );
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
-    false
-  );
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(false);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -24,10 +21,14 @@ function App() {
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   };
+  const handleCardClick = () => {
+    setSelectedCard(!selectedCard);
+  };
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(false);
   };
   return (
     <>
@@ -150,13 +151,6 @@ function App() {
         </button>
       </PopupWithForm>
       <ImagePopup />
-      <div className='errors'>
-        <template className='error__template'>
-          <div className='error'>
-            <p className='error__massage'></p>
-          </div>
-        </template>
-      </div>
     </>
   );
 }
