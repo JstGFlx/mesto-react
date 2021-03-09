@@ -11,7 +11,7 @@ function PopupWithForm(props) {
           className='btn btn_type_close'
           type='button'
           aria-label='закрыть'
-        ></button>
+        />
         <h2 className='popup__title'>{props.title}</h2>
         <form className='popup__form' name={props.name} noValidate>
           {props.children}

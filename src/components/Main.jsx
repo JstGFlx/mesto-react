@@ -44,7 +44,7 @@ function Main(props) {
               type='button'
               aria-label='изменить'
               onClick={props.onEditProfile}
-            ></button>
+            />
             <div className='load-wraper load-wraper_type_about'>
               <div className='load-wraper__activity'></div>
             </div>
@@ -56,7 +56,7 @@ function Main(props) {
           type='button'
           aria-label='добавить'
           onClick={props.onAddPlace}
-        ></button>
+        />
       </section>
       <section className='cards'>
         {cards.map((card) => {
