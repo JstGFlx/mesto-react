@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import api from "../utils/Api";
+import api from "../utils/api";
 import Card from "../components/Card";
 import { showErrorMassage } from "../utils/utils";
 
@@ -61,12 +61,7 @@ function Main(props) {
       <section className='cards'>
         {cards.map((card) => {
           return (
-            <Card
-              key={card._id}
-              name={card.name}
-              src={card.link}
-              likes={card.likes.length}
-            />
+            <Card key={card._id} card={card} onCardClick={props.onCardClick} />
           );
         })}
       </section>
