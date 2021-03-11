@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { api } from "../utils/utils";
 import Card from "./Card.jsx";
-import { showErrorMassage } from "../utils/utils";
+import { showErrorMassage, api } from "../utils/utils";
 
 function Main(props) {
   const [userName, setUserName] = useState();
