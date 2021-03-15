@@ -23,41 +23,41 @@ function Main(props) {
 
   return (
     <main>
-      <section className='profile'>
-        <div className='profile__container'>
-          <div className='load-wraper load-wraper_type_avatar'>
-            <div className='load-wraper__activity'></div>
+      <section className="profile">
+        <div className="profile__container">
+          <div className="load-wraper load-wraper_type_avatar">
+            <div className="load-wraper__activity" />
           </div>
           <div
-            className='profile__avatar'
+            className="profile__avatar"
             onClick={props.onEditAvatar}
             style={{ backgroundImage: `url(${userAvatar})` }}
-          ></div>
-          <div className='profile__info'>
-            <div className='load-wraper load-wraper_type_name'>
-              <div className='load-wraper__activity'></div>
+          />
+          <div className="profile__info">
+            <div className="load-wraper load-wraper_type_name">
+              <div className="load-wraper__activity" />
             </div>
-            <h1 className='profile__name'>{userName}</h1>
+            <h1 className="profile__name">{userName}</h1>
             <button
-              className='btn btn_type_edit'
-              type='button'
-              aria-label='изменить'
+              className="btn btn_type_edit"
+              type="button"
+              aria-label="изменить"
               onClick={props.onEditProfile}
             />
-            <div className='load-wraper load-wraper_type_about'>
-              <div className='load-wraper__activity'></div>
+            <div className="load-wraper load-wraper_type_about">
+              <div className="load-wraper__activity" />
             </div>
-            <p className='profile__about-me'>{userDescription}</p>
+            <p className="profile__about-me">{userDescription}</p>
           </div>
         </div>
         <button
-          className='btn btn_type_add'
-          type='button'
-          aria-label='добавить'
+          className="btn btn_type_add"
+          type="button"
+          aria-label="добавить"
           onClick={props.onAddPlace}
         />
       </section>
-      <section className='cards'>
+      <section className="cards">
         {cards.map((card) => {
           return (
             <Card key={card._id} card={card} onCardClick={props.onCardClick} />
