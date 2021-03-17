@@ -5,17 +5,16 @@ class Api {
     this._contentType = headers["Content-Type"];
   }
 
+  getResponse(res) {
+    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
         authorization: this._authorization,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    }).then(this.getResponse);
   }
 
   getUserInfo() {
@@ -23,12 +22,17 @@ class Api {
       headers: {
         authorization: this._authorization,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    }).then(this.getResponse);
+  }
+
+  changeLikeCardStatus(cardID, like) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
+      method: like ? "PUT" : "DELETE",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": this._contentType,
+      },
+    }).then(this.getResponse);
   }
 }
 
