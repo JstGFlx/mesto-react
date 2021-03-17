@@ -65,6 +65,16 @@ class Api {
       body: JSON.stringify(link),
     }).then(this.getResponse);
   }
+  postNewCard(data) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": this._contentType,
+      },
+      body: JSON.stringify(data),
+    }).then(this.getResponse);
+  }
 }
 
 export default Api;

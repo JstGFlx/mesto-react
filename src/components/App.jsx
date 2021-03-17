@@ -9,6 +9,7 @@ import { showErrorMassage, api } from "../utils/utils";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -66,6 +67,17 @@ function App() {
       .patchAvatar(data)
       .then((res) => {
         setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        showErrorMassage(err);
+      });
+  };
+  const handleAddPlaceSubmit = (data) => {
+    api
+      .postNewCard(data)
+      .then((res) => {
+        setCards([res, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
@@ -138,41 +150,11 @@ function App() {
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
       />
-      <PopupWithForm
-        key={1}
-        name="add"
-        title="Новое место"
+      <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-      >
-        <input
-          className="popup__input popup__input_text_title"
-          name="name"
-          id="name-card"
-          type="text"
-          placeholder="Название"
-          minLength="2"
-          maxLength="30"
-          required
-        />
-        <span className="popup__error" id="name-card-error" />
-        <input
-          className="popup__input popup__input_text_link"
-          name="link"
-          id="url-card"
-          type="url"
-          placeholder="Ссылка на картинку"
-          required
-        />
-        <span className="popup__error" id="url-card-error" />
-        <button
-          className="btn btn_margin_l popup__button popup__button_type_add"
-          type="submit"
-          aria-label="сохранить"
-        >
-          Создать
-        </button>
-      </PopupWithForm>
+        onAddPlace={handleAddPlaceSubmit}
+      />
       <PopupWithForm
         key={3}
         name="delete"
