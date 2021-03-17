@@ -4,18 +4,24 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup(props) {
   const currentUser = useContext(CurrentUserContext);
-  const [valueName, setValueName] = useState("");
-  const [valueAbout, setValueAbout] = useState("");
-
+  const [name, setName] = useState("");
+  const [about, setAbout] = useState("");
   const handleChange = (e) => {
     e.target.name === "name"
-      ? setValueName(e.target.value)
-      : setValueAbout(e.target.value);
+      ? setName(e.target.value)
+      : setAbout(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.onUpdateUser({
+      name,
+      about,
+    });
   };
 
   useEffect(() => {
-    setValueName(currentUser.name);
-    setValueAbout(currentUser.about);
+    setName(currentUser.name);
+    setAbout(currentUser.about);
   }, [currentUser]);
 
   return (
@@ -25,10 +31,11 @@ function EditProfilePopup(props) {
       title="Редактировать профиль"
       isOpen={props.isOpen}
       onClose={props.onClose}
+      onSubmit={handleSubmit}
     >
       <input
         className="popup__input popup__input_text_name"
-        value={valueName}
+        value={name}
         onChange={handleChange}
         name="name"
         id="name-profile"
@@ -41,7 +48,7 @@ function EditProfilePopup(props) {
       <span className="popup__error" id="name-profile-error" />
       <input
         className="popup__input popup__input_text_about-me"
-        value={valueAbout}
+        value={about}
         onChange={handleChange}
         name="about"
         id="about-profile"

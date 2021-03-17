@@ -43,6 +43,17 @@ class Api {
       },
     }).then(this.getResponse);
   };
+
+  pathUserInfo(data) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": this._contentType,
+      },
+      body: JSON.stringify(data),
+    }).then(this.getResponse);
+  }
 }
 
 export default Api;

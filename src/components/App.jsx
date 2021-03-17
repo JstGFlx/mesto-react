@@ -48,6 +48,17 @@ function App() {
       link: link,
     });
   };
+  const handleUpdateUser = (data) => {
+    api
+      .pathUserInfo(data)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        showErrorMassage(err);
+      });
+  };
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -67,6 +78,7 @@ function App() {
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
       />
       <PopupWithForm
         key={1}
