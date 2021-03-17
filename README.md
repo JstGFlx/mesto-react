@@ -1,6 +1,6 @@
 # Mesto - React
 
-### Описание
+## Описание
 
 Полностью переписанный на React проект [Mesto](https://github.com/JstGFlx/mesto)
 
@@ -23,7 +23,7 @@
 ## Установка и развертываение:
 Клонируйте себе репозиторий командой:
 ```
-git clone https://github.com/JstGFlx/russian-travel.git
+git clone https://github.com/JstGFlx/mesto-react.git
 ```
 Далее вам потребуется установленный node.js и его пакетный менеджер npm, найти их сможете тут: http://nodejs.org/
 После установки npm перейдите в папку с проектом и введите команду:
