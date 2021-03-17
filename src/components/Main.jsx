@@ -5,82 +5,44 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
-
-  const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    api
-      .changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      });
-  };
-
-  const handleCardDelete = (card) => {
-    api
-      .deleteCard(card._id)
-      .then(() => {
-        setCards((state) => state.filter((c) => c !== card));
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      });
-  };
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      });
-  }, []);
 
   return (
     <main>
-      <section className="profile">
-        <div className="profile__container">
-          <div className="load-wraper load-wraper_type_avatar">
-            <div className="load-wraper__activity" />
+      <section className='profile'>
+        <div className='profile__container'>
+          <div className='load-wrapper load-wrapper_type_avatar'>
+            <div className='load-wrapper__activity' />
           </div>
           <div
-            className="profile__avatar"
+            className='profile__avatar'
             onClick={props.onEditAvatar}
             style={{ backgroundImage: `url(${currentUser.avatar})` }}
           />
-          <div className="profile__info">
-            <div className="load-wraper load-wraper_type_name">
-              <div className="load-wraper__activity" />
+          <div className='profile__info'>
+            <div className='load-wrapper load-wrapper_type_name'>
+              <div className='load-wrapper__activity' />
             </div>
-            <h1 className="profile__name">{currentUser.name}</h1>
+            <h1 className='profile__name'>{currentUser.name}</h1>
             <button
-              className="btn btn_type_edit"
-              type="button"
-              aria-label="изменить"
+              className='btn btn_type_edit'
+              type='button'
+              aria-label='изменить'
               onClick={props.onEditProfile}
             />
-            <div className="load-wraper load-wraper_type_about">
-              <div className="load-wraper__activity" />
+            <div className='load-wrapper load-wrapper_type_about'>
+              <div className='load-wrapper__activity' />
             </div>
-            <p className="profile__about-me">{currentUser.about}</p>
+            <p className='profile__about-me'>{currentUser.about}</p>
           </div>
         </div>
         <button
-          className="btn btn_type_add"
-          type="button"
-          aria-label="добавить"
+          className='btn btn_type_add'
+          type='button'
+          aria-label='добавить'
           onClick={props.onAddPlace}
         />
       </section>
-      <section className="cards">
+      <section className='cards'>
         {cards.map((card) => {
           return (
             <Card

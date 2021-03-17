@@ -35,14 +35,14 @@ class Api {
     }).then(this.getResponse);
   }
 
-  deleteCard = (id) => {
+  deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: {
         authorization: this._authorization,
       },
     }).then(this.getResponse);
-  };
+  }
 
   pathUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -52,6 +52,17 @@ class Api {
         "Content-Type": this._contentType,
       },
       body: JSON.stringify(data),
+    }).then(this.getResponse);
+  }
+
+  patchAvatar(link) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": this._contentType,
+      },
+      body: JSON.stringify(link),
     }).then(this.getResponse);
   }
 }
