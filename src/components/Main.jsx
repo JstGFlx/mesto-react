@@ -1,20 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Card from "./Card.jsx";
 import { showErrorMassage, api } from "../utils/utils";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  const [userName, setUserName] = useState();
-  const [userDescription, setUserDescription] = useState();
-  const [userAvatar, setUserAvatar] = useState();
+  const currentUser = useContext(CurrentUserContext);
   const [cards, setCards] = useState([]);
 
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    console.log(card);
+
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      //setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  };
+
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([info, cards]) => {
-        setUserName(info.name);
-        setUserDescription(info.about);
-        setUserAvatar(info.avatar);
-        setCards(cards);
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards(res);
       })
       .catch((err) => {
         showErrorMassage(err);
@@ -31,13 +37,13 @@ function Main(props) {
           <div
             className="profile__avatar"
             onClick={props.onEditAvatar}
-            style={{ backgroundImage: `url(${userAvatar})` }}
+            style={{ backgroundImage: `url(${currentUser.avatar})` }}
           />
           <div className="profile__info">
             <div className="load-wraper load-wraper_type_name">
               <div className="load-wraper__activity" />
             </div>
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{currentUser.name}</h1>
             <button
               className="btn btn_type_edit"
               type="button"
@@ -47,7 +53,7 @@ function Main(props) {
             <div className="load-wraper load-wraper_type_about">
               <div className="load-wraper__activity" />
             </div>
-            <p className="profile__about-me">{userDescription}</p>
+            <p className="profile__about-me">{currentUser.about}</p>
           </div>
         </div>
         <button
@@ -60,7 +66,12 @@ function Main(props) {
       <section className="cards">
         {cards.map((card) => {
           return (
-            <Card key={card._id} card={card} onCardClick={props.onCardClick} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={props.onCardClick}
+              onCardLike={handleCardLike}
+            />
           );
         })}
       </section>
