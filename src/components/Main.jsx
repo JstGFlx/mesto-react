@@ -8,7 +8,6 @@ function Main(props) {
   const [cards, setCards] = useState([]);
 
   const handleCardLike = (card) => {
-    console.log(card);
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     api

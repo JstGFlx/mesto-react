@@ -7,6 +7,7 @@ import PopupWithForm from "./PopupWithForm.jsx";
 import ImagePopup from "./ImagePopup.jsx";
 import { showErrorMassage, api } from "../utils/utils";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -63,44 +64,10 @@ function App() {
         onCardClick={handleCardClick}
       />
       <Footer />
-      <PopupWithForm
-        key={0}
-        name="edit"
-        title="Редактировать профиль"
+      <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
-      >
-        <input
-          className="popup__input popup__input_text_name"
-          name="name"
-          id="name-profile"
-          type="text"
-          placeholder="Имя"
-          minLength="2"
-          maxLength="40"
-          required
-        />
-        <span className="popup__error" id="name-profile-error" />
-        <input
-          className="popup__input popup__input_text_about-me"
-          name="about"
-          id="about-profile"
-          type="text"
-          placeholder="О себе"
-          minLength="2"
-          maxLength="200"
-          required
-          noValidate
-        />
-        <span className="popup__error" id="about-profile-error" />
-        <button
-          className="btn btn_margin_l popup__button popup__button_type_edit"
-          type="submit"
-          aria-label="сохранить"
-        >
-          Сохранить
-        </button>
-      </PopupWithForm>
+      />
       <PopupWithForm
         key={1}
         name="add"
