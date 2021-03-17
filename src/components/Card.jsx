@@ -12,9 +12,17 @@ function Card(props) {
     isLiked ? "card__like_active" : ""
   }`;
 
-  function handleClick() {
+  const handleClick = () => {
     props.onCardClick(props.card);
-  }
+  };
+
+  const handleLikeClick = () => {
+    props.onCardLike(props.card);
+  };
+
+  const handleCardDelete = () => {
+    props.onCardDelete(props.card);
+  };
 
   return (
     <article className="card">
@@ -22,6 +30,7 @@ function Card(props) {
         className={cardDeleteButtonClassName}
         type="button"
         aria-label="удалить"
+        onClick={handleCardDelete}
       />
       <img
         className="card__image"
@@ -36,7 +45,7 @@ function Card(props) {
             className={cardLikeButtonClassName}
             type="button"
             aria-label="мне нравится"
-            onClick={props.onCardLike(props.card)}
+            onClick={handleLikeClick}
           />
           <p className="card__like-counter">{props.card.likes.length}</p>
         </div>

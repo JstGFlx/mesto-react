@@ -8,12 +8,30 @@ function Main(props) {
   const [cards, setCards] = useState([]);
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
     console.log(card);
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      //setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        showErrorMassage(err);
+      });
+  };
+
+  const handleCardDelete = (card) => {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c !== card));
+      })
+      .catch((err) => {
+        showErrorMassage(err);
+      });
   };
 
   useEffect(() => {
@@ -71,6 +89,7 @@ function Main(props) {
               card={card}
               onCardClick={props.onCardClick}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           );
         })}
