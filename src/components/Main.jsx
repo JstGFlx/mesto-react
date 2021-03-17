@@ -50,6 +50,7 @@ function Main(props) {
               onCardClick={props.onCardClick}
               onCardLike={props.onCardLike}
               onCardDelete={props.onCardDelete}
+              onCardDeleteClick={props.onCardDeleteClick}
             />
           );
         })}

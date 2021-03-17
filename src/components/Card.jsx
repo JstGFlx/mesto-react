@@ -24,13 +24,18 @@ function Card(props) {
     props.onCardDelete(props.card);
   };
 
+  const handleDeleteClick = () => {
+    console.log("1");
+    props.onCardDeleteClick();
+  };
+
   return (
     <article className="card">
       <button
         className={cardDeleteButtonClassName}
         type="button"
         aria-label="удалить"
-        onClick={handleCardDelete}
+        onClick={props.onCardDeleteClick}
       />
       <img
         className="card__image"

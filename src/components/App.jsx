@@ -3,18 +3,19 @@ import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { showErrorMassage, api } from "../utils/utils";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import DeleteCardPopup from "./DeleteCardPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isDeleteCardPopup, setIsDeleteCardPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({
@@ -44,6 +45,9 @@ function App() {
   };
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+  };
+  const handleCardDeleteClick = () => {
+    setIsDeleteCardPopup(!isDeleteCardPopup);
   };
   const handleCardClick = ({ name, link }) => {
     setSelectedCard({
@@ -88,6 +92,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsDeleteCardPopup(false);
     setSelectedCard(null);
   };
 
@@ -138,6 +143,7 @@ function App() {
         cards={cards}
         onCardLike={handleCardLike}
         onCardDelete={handleCardDelete}
+        onCardDeleteClick={handleCardDeleteClick}
       />
       <Footer />
       <EditProfilePopup
@@ -155,20 +161,7 @@ function App() {
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
       />
-      <PopupWithForm
-        key={3}
-        name="delete"
-        title="Вы уверены?"
-        onClose={closeAllPopups}
-      >
-        <button
-          className="btn btn_margin_s popup__button popup__button_type_delete"
-          type="submit"
-          aria-label="сохранить"
-        >
-          Да
-        </button>
-      </PopupWithForm>
+      <DeleteCardPopup isOpen={isDeleteCardPopup} onClose={closeAllPopups} />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
   );
