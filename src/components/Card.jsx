@@ -1,15 +1,15 @@
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { useContext } from "react";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useContext } from 'react';
 
 function Card(props) {
   const currentUser = useContext(CurrentUserContext);
   const isOwn = props.card.owner._id === currentUser._id;
   const cardDeleteButtonClassName = `btn btn_type_delete ${
-    isOwn ? "btn_visible " : ""
+    isOwn ? 'btn_visible ' : ''
   }`;
   const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
   const cardLikeButtonClassName = `card__like ${
-    isLiked ? "card__like_active" : ""
+    isLiked ? 'card__like_active' : ''
   }`;
 
   const handleClick = () => {
@@ -20,39 +20,34 @@ function Card(props) {
     props.onCardLike(props.card);
   };
 
-  const handleCardDelete = () => {
-    props.onCardDelete(props.card);
-  };
-
   const handleDeleteClick = () => {
-    console.log("1");
-    props.onCardDeleteClick();
+    props.onCardDeleteClick(props.card._id);
   };
 
   return (
-    <article className="card">
+    <article className='card'>
       <button
         className={cardDeleteButtonClassName}
-        type="button"
-        aria-label="удалить"
-        onClick={props.onCardDeleteClick}
+        type='button'
+        aria-label='удалить'
+        onClick={handleDeleteClick}
       />
       <img
-        className="card__image"
+        className='card__image'
         src={props.card.link}
         alt={props.card.name}
         onClick={handleClick}
       />
-      <div className="card__block">
-        <h2 className="card__name">{props.card.name}</h2>
-        <div className="card__like-container">
+      <div className='card__block'>
+        <h2 className='card__name'>{props.card.name}</h2>
+        <div className='card__like-container'>
           <button
             className={cardLikeButtonClassName}
-            type="button"
-            aria-label="мне нравится"
+            type='button'
+            aria-label='мне нравится'
             onClick={handleLikeClick}
           />
-          <p className="card__like-counter">{props.card.likes.length}</p>
+          <p className='card__like-counter'>{props.card.likes.length}</p>
         </div>
       </div>
     </article>
