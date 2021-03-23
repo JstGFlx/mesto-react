@@ -22,6 +22,5 @@
 @media (max-width: 535px) {
   .profile__name {
     max-width: 212px;
-    margin-left: 31px;
   }
 }
