@@ -9,9 +9,6 @@ function Main(props) {
     <main>
       <section className='profile'>
         <div className='profile__container'>
-          <div className='load-wrapper load-wrapper_type_avatar'>
-            <div className='load-wrapper__activity' />
-          </div>
           <div
             className='profile__avatar'
             onClick={props.onEditAvatar}
@@ -20,9 +17,6 @@ function Main(props) {
             }}
           />
           <div className='profile__info'>
-            <div className='load-wrapper load-wrapper_type_name'>
-              <div className='load-wrapper__activity' />
-            </div>
             <h1 className='profile__name'>{currentUser && currentUser.name}</h1>
             <button
               className='btn btn_type_edit'
@@ -30,9 +24,6 @@ function Main(props) {
               aria-label='изменить'
               onClick={props.onEditProfile}
             />
-            <div className='load-wrapper load-wrapper_type_about'>
-              <div className='load-wrapper__activity' />
-            </div>
             <p className='profile__about-me'>
               {currentUser && currentUser.about}
             </p>
