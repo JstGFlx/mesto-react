@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Card from './Card.jsx';
+import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import SkeletonLoader from './SkeletonLoader.js';
 
