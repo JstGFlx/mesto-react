@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useForm } from 'react-hook-form';
 
 function EditProfilePopup(props) {
+  const { register, handleSubmit, errors } = useForm();
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
@@ -11,8 +13,7 @@ function EditProfilePopup(props) {
       ? setName(e.target.value)
       : setAbout(e.target.value);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = () => {
     props.onUpdateUser({
       name,
       about,
@@ -33,7 +34,7 @@ function EditProfilePopup(props) {
       title='Редактировать профиль'
       isOpen={props.isOpen}
       onClose={props.onClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <input
         className='popup__input popup__input_text_name'
@@ -43,11 +44,24 @@ function EditProfilePopup(props) {
         id='name-profile'
         type='text'
         placeholder='Имя'
-        minLength='2'
-        maxLength='40'
-        required
+        ref={register({ required: true, minLength: 2, maxLength: 40 })}
       />
-      <span className='popup__error' id='name-profile-error' />
+      {errors.name && errors.name.type === 'required' && (
+        <span className='popup__error' id='name-profile-error'>
+          Пожалуйста заполните это поле.
+        </span>
+      )}
+      {errors.name && errors.name.type === 'minLength' && (
+        <span className='popup__error' id='name-profile-error'>
+          Вряд ли ваше имя короче двух букв. Напишите свое имя.
+        </span>
+      )}
+      {errors.name && errors.name.type === 'maxLength' && (
+        <span className='popup__error' id='name-profile-error'>
+          Слишком длинное имя.
+        </span>
+      )}
+
       <input
         className='popup__input popup__input_text_about-me'
         value={about}
@@ -56,12 +70,23 @@ function EditProfilePopup(props) {
         id='about-profile'
         type='text'
         placeholder='О себе'
-        minLength='2'
-        maxLength='200'
-        required
-        noValidate
+        ref={register({ required: true, minLength: 2, maxLength: 200 })}
       />
-      <span className='popup__error' id='about-profile-error' />
+      {errors.about && errors.about.type === 'required' && (
+        <span className='popup__error' id='name-profile-error'>
+          Пожалуйста заполните это поле.
+        </span>
+      )}
+      {errors.about && errors.about.type === 'minLength' && (
+        <span className='popup__error' id='name-profile-error'>
+          Слишком мало информации о себе. Напишите что-нибудь еще.
+        </span>
+      )}
+      {errors.about && errors.about.type === 'maxLength' && (
+        <span className='popup__error' id='name-profile-error'>
+          Слишком много информации о себе.
+        </span>
+      )}
       <button
         className='btn btn_margin_l popup__button popup__button_type_edit'
         type='submit'
