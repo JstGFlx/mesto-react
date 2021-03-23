@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
+import { useForm } from 'react-hook-form';
 
 function AddPlacePopup(props) {
+  const { register, handleSubmit, errors } = useForm();
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit = () => {
     props.onAddPlace({
       name,
       link,
@@ -32,32 +32,49 @@ function AddPlacePopup(props) {
       title='Новое место'
       isOpen={props.isOpen}
       onClose={props.onClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <input
         className='popup__input popup__input_text_title'
         value={name}
         onChange={handleChange}
         name='name'
-        id='name-card'
         type='text'
         placeholder='Название'
-        minLength='2'
-        maxLength='30'
-        required
+        ref={register({ required: true, minLength: 2, maxLength: 30 })}
       />
-      <span className='popup__error' id='name-card-error' />
+      {errors.name && errors.name.type === 'required' && (
+        <span className='popup__error'>Пожалуйста заполните это поле.</span>
+      )}
+      {errors.name && errors.name.type === 'minLength' && (
+        <span className='popup__error'>
+          Пожалуйста введите название длинее одной буквы.
+        </span>
+      )}
+      {errors.name && errors.name.type === 'maxLength' && (
+        <span className='popup__error'>Слишком длинное название.</span>
+      )}
       <input
         className='popup__input popup__input_text_link'
         value={link}
         onChange={handleChange}
         name='link'
-        id='url-card'
         type='url'
         placeholder='Ссылка на картинку'
-        required
+        ref={register({
+          required: true,
+          pattern: {
+            value: /^https?:\/\//,
+            message: 'Пожалуйста, введите URL в формате https:// ...',
+          },
+        })}
       />
-      <span className='popup__error' id='url-card-error' />
+      {errors.link && errors.link.type === 'required' && (
+        <span className='popup__error'>Пожалуйста заполните это поле.</span>
+      )}
+      {errors.link && (
+        <span className='popup__error'>{errors.link.message}</span>
+      )}
       <button
         className='btn btn_margin_l popup__button popup__button_type_add'
         type='submit'
