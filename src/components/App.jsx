@@ -18,24 +18,7 @@ function App() {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
-  const [currentUser, setCurrentUser] = useState({
-    about: '',
-    avatar: '',
-    cohort: '',
-    name: '',
-    _id: '',
-  });
-
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      });
-  }, []);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -95,7 +78,6 @@ function App() {
     setIsDeletePopupOpen(false);
     setSelectedCard(null);
   };
-
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
@@ -110,7 +92,6 @@ function App() {
         showErrorMassage(err);
       });
   };
-
   const handleCardDelete = (_id) => {
     api
       .deleteCard(_id)
@@ -133,6 +114,18 @@ function App() {
         showErrorMassage(err);
       });
   }, []);
+
+  useEffect(() => {
+    api
+      .getUserInfo()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        showErrorMassage(err);
+      });
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />

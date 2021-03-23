@@ -15,13 +15,15 @@ function Main(props) {
           <div
             className='profile__avatar'
             onClick={props.onEditAvatar}
-            style={{ backgroundImage: `url(${currentUser.avatar})` }}
+            style={{
+              backgroundImage: `url(${currentUser && currentUser.avatar})`,
+            }}
           />
           <div className='profile__info'>
             <div className='load-wrapper load-wrapper_type_name'>
               <div className='load-wrapper__activity' />
             </div>
-            <h1 className='profile__name'>{currentUser.name}</h1>
+            <h1 className='profile__name'>{currentUser && currentUser.name}</h1>
             <button
               className='btn btn_type_edit'
               type='button'
@@ -31,7 +33,9 @@ function Main(props) {
             <div className='load-wrapper load-wrapper_type_about'>
               <div className='load-wrapper__activity' />
             </div>
-            <p className='profile__about-me'>{currentUser.about}</p>
+            <p className='profile__about-me'>
+              {currentUser && currentUser.about}
+            </p>
           </div>
         </div>
         <button
