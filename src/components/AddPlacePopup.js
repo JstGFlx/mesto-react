@@ -1,29 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { useForm } from 'react-hook-form';
 
 function AddPlacePopup(props) {
-  const { register, handleSubmit, errors } = useForm();
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('');
+  const {
+    register,
+    handleSubmit,
+    errors,
+    reset,
+    getValues,
+    formState,
+    trigger,
+  } = useForm({
+    mode: 'all',
+  });
+
+  const { isValid } = formState;
 
   const onSubmit = () => {
-    props.onAddPlace({
-      name,
-      link,
-    });
-  };
-
-  const handleChange = (e) => {
-    e.target.name === 'name'
-      ? setName(e.target.value)
-      : setLink(e.target.value);
+    props.onAddPlace(getValues());
+    trigger();
   };
 
   useEffect(() => {
-    setName('');
-    setLink('');
-  }, [props.isOpen]);
+    reset();
+  }, [props.isOpen, reset]);
 
   return (
     <PopupWithForm
@@ -36,19 +37,17 @@ function AddPlacePopup(props) {
     >
       <input
         className='popup__input popup__input_text_title'
-        value={name}
-        onChange={handleChange}
         name='name'
         type='text'
         placeholder='Название'
         ref={register({ required: true, minLength: 2, maxLength: 30 })}
       />
       {errors.name && errors.name.type === 'required' && (
-        <span className='popup__error'>Пожалуйста заполните это поле.</span>
+        <span className='popup__error'>Пожалуйста, заполните это поле.</span>
       )}
       {errors.name && errors.name.type === 'minLength' && (
         <span className='popup__error'>
-          Пожалуйста введите название длинее одной буквы.
+          Пожалуйста, введите название длинее одной буквы.
         </span>
       )}
       {errors.name && errors.name.type === 'maxLength' && (
@@ -56,8 +55,6 @@ function AddPlacePopup(props) {
       )}
       <input
         className='popup__input popup__input_text_link'
-        value={link}
-        onChange={handleChange}
         name='link'
         type='url'
         placeholder='Ссылка на картинку'
@@ -70,15 +67,18 @@ function AddPlacePopup(props) {
         })}
       />
       {errors.link && errors.link.type === 'required' && (
-        <span className='popup__error'>Пожалуйста заполните это поле.</span>
+        <span className='popup__error'>Пожалуйста, заполните это поле.</span>
       )}
       {errors.link && (
         <span className='popup__error'>{errors.link.message}</span>
       )}
       <button
-        className='btn btn_margin_l popup__button popup__button_type_add'
+        className={`btn btn_margin_l popup__button popup__button_type_add ${
+          !isValid && 'popup__button_disabled'
+        }`}
         type='submit'
         aria-label='сохранить'
+        disabled={!isValid}
       >
         Создать
       </button>
