@@ -34,6 +34,7 @@ function Main(props) {
               type='button'
               aria-label='изменить'
               onClick={props.onEditProfile}
+              disabled={!currentUser}
             />
             {!currentUser && (
               <SkeletonLoader width='203' height='17' radius='10' />
@@ -48,6 +49,7 @@ function Main(props) {
           type='button'
           aria-label='добавить'
           onClick={props.onAddPlace}
+          disabled={!currentUser}
         />
       </section>
       <section className='cards'>
