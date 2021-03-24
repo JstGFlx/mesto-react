@@ -1,31 +1,39 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useForm } from 'react-hook-form';
 
 function EditProfilePopup(props) {
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    errors,
+    reset,
+    getValues,
+    formState,
+    trigger,
+    setValue,
+  } = useForm({
+    mode: 'all',
+  });
+  const { isValid } = formState;
+
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [about, setAbout] = useState('');
-  const handleChange = (e) => {
-    e.target.name === 'name'
-      ? setName(e.target.value)
-      : setAbout(e.target.value);
-  };
+
   const onSubmit = () => {
-    props.onUpdateUser({
-      name,
-      about,
-    });
+    props.onUpdateUser(getValues());
+    trigger();
   };
 
   useEffect(() => {
-    if (currentUser) {
-      setName(currentUser.name);
-      setAbout(currentUser.about);
+    if (props.isOpen) {
+      setValue('name', currentUser.name);
+      setValue('about', currentUser.about);
+      trigger();
+    } else {
+      reset();
     }
-  }, [currentUser]);
+  }, [props.isOpen, reset, trigger, setValue, currentUser]);
 
   return (
     <PopupWithForm
@@ -38,8 +46,6 @@ function EditProfilePopup(props) {
     >
       <input
         className='popup__input popup__input_text_name'
-        value={name}
-        onChange={handleChange}
         name='name'
         type='text'
         placeholder='Имя'
@@ -59,8 +65,6 @@ function EditProfilePopup(props) {
 
       <input
         className='popup__input popup__input_text_about-me'
-        value={about}
-        onChange={handleChange}
         name='about'
         type='text'
         placeholder='О себе'
@@ -78,9 +82,12 @@ function EditProfilePopup(props) {
         <span className='popup__error'>Слишком много информации о себе.</span>
       )}
       <button
-        className='btn btn_margin_l popup__button popup__button_type_edit'
+        className={`btn btn_margin_l popup__button popup__button_type_add ${
+          !isValid && 'popup__button_disabled'
+        }`}
         type='submit'
         aria-label='сохранить'
+        disabled={!isValid}
       >
         Сохранить
       </button>
