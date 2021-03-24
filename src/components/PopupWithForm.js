@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function PopupWithForm(props) {
+  const { isOpen, onClose } = props;
+
+  useEffect(() => {
+    const handleEcsacePush = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    const handleOutsideClick = (event) => {
+      if (event.target.classList.contains('popup_opened')) onClose();
+    };
+
+    if (isOpen) {
+      window.addEventListener('keydown', handleEcsacePush);
+      window.addEventListener('mousedown', handleOutsideClick);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleEcsacePush);
+      window.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <div
       className={`popup popup_type_${props.name} ${
-        props.isOpen ? 'popup_opened' : ''
+        isOpen ? 'popup_opened' : ''
       }`}
     >
       <figure className='popup__container'>
         <button
-          onClick={props.onClose}
+          onClick={onClose}
           className='btn btn_type_close'
           type='button'
           aria-label='закрыть'
