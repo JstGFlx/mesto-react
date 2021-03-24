@@ -1,17 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
 function PopupWithForm(props) {
   const { isOpen, onClose } = props;
+  const handleEcsacePush = useCallback(
+    (event) => {
+      if (event.key === 'Escape') onClose();
+    },
+    [onClose]
+  );
+
+  const handleOutsideClick = useCallback(
+    (event) => {
+      if (event.target.classList.contains('popup_opened')) onClose();
+    },
+    [onClose]
+  );
 
   useEffect(() => {
-    const handleEcsacePush = (event) => {
-      if (event.key === 'Escape') onClose();
-    };
-
-    const handleOutsideClick = (event) => {
-      if (event.target.classList.contains('popup_opened')) onClose();
-    };
-
     if (isOpen) {
       window.addEventListener('keydown', handleEcsacePush);
       window.addEventListener('mousedown', handleOutsideClick);
@@ -20,7 +25,7 @@ function PopupWithForm(props) {
       window.removeEventListener('keydown', handleEcsacePush);
       window.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleEcsacePush, handleOutsideClick]);
 
   return (
     <div
