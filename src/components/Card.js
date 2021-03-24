@@ -32,12 +32,14 @@ function Card(props) {
         aria-label='удалить'
         onClick={handleDeleteClick}
       />
-      <img
-        className='card__image'
-        src={props.card.link}
-        alt={props.card.name}
-        onClick={handleClick}
-      />
+      <div className='card__wrapper'>
+        <img
+          className='card__image'
+          src={props.card.link}
+          alt={props.card.name}
+          onClick={handleClick}
+        />
+      </div>
       <div className='card__block'>
         <h2 className='card__name'>{props.card.name}</h2>
         <div className='card__like-container'>
