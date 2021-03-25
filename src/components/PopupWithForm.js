@@ -2,13 +2,13 @@ import React, { useEffect, useCallback } from 'react';
 
 function PopupWithForm(props) {
   const { isOpen, onClose } = props;
+
   const handleEcsacePush = useCallback(
     (event) => {
       if (event.key === 'Escape') onClose();
     },
     [onClose]
   );
-
   const handleOutsideClick = useCallback(
     (event) => {
       if (event.target.classList.contains('popup_opened')) onClose();
