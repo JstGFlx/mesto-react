@@ -8,7 +8,6 @@ function EditProfilePopup(props) {
     register,
     handleSubmit,
     errors,
-    reset,
     getValues,
     formState,
     trigger,
@@ -30,10 +29,8 @@ function EditProfilePopup(props) {
       setValue('name', currentUser.name);
       setValue('about', currentUser.about);
       trigger();
-    } else {
-      reset();
     }
-  }, [props.isOpen, reset, trigger, setValue, currentUser]);
+  }, [props.isOpen, trigger, setValue, currentUser]);
 
   return (
     <PopupWithForm
