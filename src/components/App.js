@@ -16,6 +16,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(null);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(null);
   const [isSendingData, setIsSendingData] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState(null);
@@ -34,6 +35,7 @@ function App() {
     setIsDeletePopupOpen(props);
   };
   const handleCardClick = ({ name, link }) => {
+    setIsImagePopupOpen(!isImagePopupOpen);
     setSelectedCard({
       name: name,
       link: link,
@@ -89,7 +91,10 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsDeletePopupOpen(false);
-    setSelectedCard(null);
+    setIsImagePopupOpen(false);
+    setTimeout(() => {
+      setSelectedCard(null);
+    }, 150);
   };
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -180,7 +185,11 @@ function App() {
         onSubmit={handleCardDelete}
         onSendingData={isSendingData}
       />
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      <ImagePopup
+        card={selectedCard}
+        isOpen={isImagePopupOpen}
+        onClose={closeAllPopups}
+      />
     </CurrentUserContext.Provider>
   );
 }
