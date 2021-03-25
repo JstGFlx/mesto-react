@@ -21,7 +21,7 @@ function DeleteCardPopup(props) {
         aria-label='сохранить'
         onClick={handleSubmit}
       >
-        Да
+        {props.onSendingData ? 'Удаление...' : 'Да'}
       </button>
     </PopupWithForm>
   );

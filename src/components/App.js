@@ -40,7 +40,7 @@ function App() {
     });
   };
   const handleUpdateUser = (data) => {
-    setIsSendingData(true);
+    setIsSendingData(!isSendingData);
     api
       .pathUserInfo(data)
       .then((res) => {
@@ -55,6 +55,7 @@ function App() {
       });
   };
   const handleUpdateAvatar = (data) => {
+    setIsSendingData(!isSendingData);
     api
       .patchAvatar(data)
       .then((res) => {
@@ -69,6 +70,7 @@ function App() {
       });
   };
   const handleAddPlaceSubmit = (data) => {
+    setIsSendingData(!isSendingData);
     api
       .postNewCard(data)
       .then((res) => {
@@ -104,6 +106,7 @@ function App() {
       });
   };
   const handleCardDelete = (_id) => {
+    setIsSendingData(!isSendingData);
     api
       .deleteCard(_id)
       .then(() => {
@@ -163,6 +166,7 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
+        onSendingData={isSendingData}
       />
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
@@ -174,6 +178,7 @@ function App() {
         isOpen={isDeletePopupOpen}
         onClose={closeAllPopups}
         onSubmit={handleCardDelete}
+        onSendingData={isSendingData}
       />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>

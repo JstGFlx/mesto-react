@@ -14,7 +14,6 @@ function EditAvatarPopup(props) {
   } = useForm({
     mode: 'all',
   });
-
   const { isValid } = formState;
 
   const onSubmit = () => {
@@ -62,7 +61,7 @@ function EditAvatarPopup(props) {
         aria-label='сохранить'
         disabled={!isValid}
       >
-        Сохранить
+        {props.onSendingData ? 'Сохранение...' : 'Сохранить'}
       </button>
     </PopupWithForm>
   );
