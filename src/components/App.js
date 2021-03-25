@@ -19,8 +19,8 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(null);
   const [isSendingData, setIsSendingData] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [cards, setCards] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [cards, setCards] = useState(null);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
