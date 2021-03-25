@@ -40,18 +40,20 @@ function AddPlacePopup(props) {
         name='name'
         type='text'
         placeholder='Название'
-        ref={register({ required: true, minLength: 2, maxLength: 30 })}
+        ref={register({
+          required: 'Пожалуйста, заполните это поле.',
+          minLength: {
+            value: 2,
+            message: 'Пожалуйста, введите название длинее одной буквы.',
+          },
+          maxLength: {
+            value: 30,
+            message: 'Слишком длинное название.',
+          },
+        })}
       />
-      {errors.name && errors.name.type === 'required' && (
-        <span className='popup__error'>Пожалуйста, заполните это поле.</span>
-      )}
-      {errors.name && errors.name.type === 'minLength' && (
-        <span className='popup__error'>
-          Пожалуйста, введите название длинее одной буквы.
-        </span>
-      )}
-      {errors.name && errors.name.type === 'maxLength' && (
-        <span className='popup__error'>Слишком длинное название.</span>
+      {errors.name && (
+        <span className='popup__error'>{errors.name.message}</span>
       )}
       <input
         className='popup__input popup__input_text_link'
@@ -59,16 +61,13 @@ function AddPlacePopup(props) {
         type='url'
         placeholder='Ссылка на картинку'
         ref={register({
-          required: true,
+          required: 'Пожалуйста, заполните это поле.',
           pattern: {
             value: /^https?:\/\//,
             message: 'Пожалуйста, введите URL в формате https:// ...',
           },
         })}
       />
-      {errors.link && errors.link.type === 'required' && (
-        <span className='popup__error'>Пожалуйста, заполните это поле.</span>
-      )}
       {errors.link && (
         <span className='popup__error'>{errors.link.message}</span>
       )}
