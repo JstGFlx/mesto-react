@@ -40,18 +40,15 @@ function EditAvatarPopup(props) {
         type='url'
         placeholder='Ссылка на картинку'
         ref={register({
-          required: true,
+          required: 'Пожалуйста, заполните это поле.',
           pattern: {
             value: /^https?:\/\//,
             message: 'Пожалуйста, введите URL в формате https:// ...',
           },
         })}
       />
-      {errors.link && errors.link.type === 'required' && (
-        <span className='popup__error'>Пожалуйста, заполните это поле.</span>
-      )}
-      {errors.link && (
-        <span className='popup__error'>{errors.link.message}</span>
+      {errors.avatar && (
+        <span className='popup__error'>{errors.avatar.message}</span>
       )}
       <button
         className={`btn btn_margin_l popup__button popup__button_type_add ${
