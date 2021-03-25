@@ -89,7 +89,7 @@ function EditProfilePopup(props) {
         aria-label='сохранить'
         disabled={!isValid}
       >
-        Сохранить
+        {props.onSendingData ? 'Сохранение...' : 'Сохранить'}
       </button>
     </PopupWithForm>
   );

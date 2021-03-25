@@ -16,6 +16,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(null);
+  const [isSendingData, setIsSendingData] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
@@ -39,6 +40,7 @@ function App() {
     });
   };
   const handleUpdateUser = (data) => {
+    setIsSendingData(true);
     api
       .pathUserInfo(data)
       .then((res) => {
@@ -47,6 +49,9 @@ function App() {
       })
       .catch((err) => {
         showErrorMassage(err);
+      })
+      .finally(() => {
+        setIsSendingData(false);
       });
   };
   const handleUpdateAvatar = (data) => {
@@ -143,6 +148,7 @@ function App() {
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
+        onSendingData={isSendingData}
       />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
