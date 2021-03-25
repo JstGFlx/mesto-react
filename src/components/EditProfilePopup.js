@@ -49,18 +49,20 @@ function EditProfilePopup(props) {
         name='name'
         type='text'
         placeholder='Имя'
-        ref={register({ required: true, minLength: 2, maxLength: 40 })}
+        ref={register({
+          required: 'Пожалуйста, заполните это поле.',
+          minLength: {
+            value: 2,
+            message: 'Пожалуйста, напишите имя длиннее одной буквы.',
+          },
+          maxLength: {
+            value: 40,
+            message: 'Слишком длинное имя.',
+          },
+        })}
       />
-      {errors.name && errors.name.type === 'required' && (
-        <span className='popup__error'>Пожалуйста, заполните это поле.</span>
-      )}
-      {errors.name && errors.name.type === 'minLength' && (
-        <span className='popup__error'>
-          Пожалуйста, напишите имя длиннее одной буквы.
-        </span>
-      )}
-      {errors.name && errors.name.type === 'maxLength' && (
-        <span className='popup__error'>Слишком длинное имя.</span>
+      {errors.name && (
+        <span className='popup__error'>{errors.name.message}</span>
       )}
 
       <input
@@ -68,18 +70,20 @@ function EditProfilePopup(props) {
         name='about'
         type='text'
         placeholder='О себе'
-        ref={register({ required: true, minLength: 2, maxLength: 200 })}
+        ref={register({
+          required: 'Пожалуйста, заполните это поле.',
+          minLength: {
+            value: 2,
+            message: 'Слишком мало информации о себе. Напишите что-нибудь еще.',
+          },
+          maxLength: {
+            value: 200,
+            message: 'Слишком много информации о себе.',
+          },
+        })}
       />
-      {errors.about && errors.about.type === 'required' && (
-        <span className='popup__error'>Пожалуйста заполните это поле.</span>
-      )}
-      {errors.about && errors.about.type === 'minLength' && (
-        <span className='popup__error'>
-          Слишком мало информации о себе. Напишите что-нибудь еще.
-        </span>
-      )}
-      {errors.about && errors.about.type === 'maxLength' && (
-        <span className='popup__error'>Слишком много информации о себе.</span>
+      {errors.about && (
+        <span className='popup__error'>{errors.about.message}</span>
       )}
       <button
         className={`btn btn_margin_l popup__button popup__button_type_add ${
