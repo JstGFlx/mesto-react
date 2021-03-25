@@ -80,7 +80,7 @@ function AddPlacePopup(props) {
         aria-label='сохранить'
         disabled={!isValid}
       >
-        Создать
+        {props.onSendingData ? 'Создание...' : 'Создать'}
       </button>
     </PopupWithForm>
   );

@@ -63,6 +63,9 @@ function App() {
       })
       .catch((err) => {
         showErrorMassage(err);
+      })
+      .finally(() => {
+        setIsSendingData(false);
       });
   };
   const handleAddPlaceSubmit = (data) => {
@@ -74,6 +77,9 @@ function App() {
       })
       .catch((err) => {
         showErrorMassage(err);
+      })
+      .finally(() => {
+        setIsSendingData(false);
       });
   };
   const closeAllPopups = () => {
@@ -106,6 +112,9 @@ function App() {
       })
       .catch((err) => {
         showErrorMassage(err);
+      })
+      .finally(() => {
+        setIsSendingData(false);
       });
   };
 
@@ -159,6 +168,7 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
+        onSendingData={isSendingData}
       />
       <DeleteCardPopup
         isOpen={isDeletePopupOpen}
