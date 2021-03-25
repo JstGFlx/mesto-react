@@ -1,4 +1,27 @@
+import { useEffect } from 'react';
+
 function ImagePopup(props) {
+  const { isOpen, onClose } = props;
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (event.target.classList.contains('popup_opened')) onClose();
+    };
+
+    const handleEcsacePush = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    if (isOpen) {
+      window.addEventListener('keydown', handleEcsacePush);
+      window.addEventListener('mousedown', handleOutsideClick);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleEcsacePush);
+      window.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <div
       className={`popup popup_type_img ${props.isOpen ? 'popup_opened' : ''}`}
