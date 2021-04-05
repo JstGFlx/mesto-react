@@ -151,7 +151,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
-      <Main
+      {/* <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
@@ -159,7 +159,7 @@ function App() {
         onCardLike={handleCardLike}
         cards={cards}
         onCardDeleteClick={handleCardDeleteClick}
-      />
+      /> */}
       <Footer />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
