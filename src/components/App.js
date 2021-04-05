@@ -11,6 +11,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
 import { Register } from './Register';
+import { Login } from './Login';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -161,7 +162,8 @@ function App() {
         cards={cards}
         onCardDeleteClick={handleCardDeleteClick}
       /> */}
-      <Register />
+      {/* <Register /> */}
+      <Login />
       <Footer />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
