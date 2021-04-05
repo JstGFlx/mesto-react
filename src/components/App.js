@@ -12,6 +12,7 @@ import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
 import { Register } from './Register';
 import { Login } from './Login';
+import { AlertStatusPopup } from './AlertStatusPopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -162,8 +163,9 @@ function App() {
         cards={cards}
         onCardDeleteClick={handleCardDeleteClick}
       /> */}
-      {/* <Register /> */}
-      <Login />
+      <Register />
+      {/*  <Login /> */}
+      <AlertStatusPopup />
       <Footer />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}

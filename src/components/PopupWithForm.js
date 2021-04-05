@@ -35,7 +35,7 @@ function PopupWithForm(props) {
           type='button'
           aria-label='закрыть'
         />
-        <h2 className='popup__title'>{props.title}</h2>
+        <h2 className='popup__title popup__title_type_form'>{props.title}</h2>
         <form
           className='popup__form'
           name={props.name}

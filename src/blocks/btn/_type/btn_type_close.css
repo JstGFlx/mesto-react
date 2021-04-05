@@ -3,7 +3,7 @@
   height: 56.56px;
   box-sizing: border-box;
   background-color: transparent;
-  background-image: url("../../../images/popup-closeIcon.svg");
+  background-image: url('../../../images/popup-closeIcon.svg');
   position: absolute;
   top: -48px;
   right: -48px;
@@ -11,8 +11,8 @@
 
 @media (max-width: 550px) {
   .btn_type_close {
-    top: -38px;
-    right: -38px;
+    top: -65px;
+    left: 42%;
     width: 42.43px;
     height: 42.43px;
   }
