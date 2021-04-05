@@ -1,7 +1,8 @@
 .auth__input {
   margin-bottom: 30px;
   padding-bottom: 8px;
-  min-width: 358px;
+  width: 100%;
+  max-width: 358px;
   background-color: transparent;
   border-bottom: 2px solid #cccccc;
   border-top: 0;
@@ -11,6 +12,5 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-
   color: #ffffff;
 }

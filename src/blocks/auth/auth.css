@@ -1,8 +1,16 @@
 .auth {
   margin-top: 60px;
+  padding: 0 30px;
   display: flex;
+  box-sizing: border-box;
   min-height: 64vh;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+@media (max-width: 692px) {
+  .auth {
+    margin-top: 40px;
+  }
 }
