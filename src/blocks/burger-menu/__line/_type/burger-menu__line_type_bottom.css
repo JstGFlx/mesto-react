@@ -1,0 +1,7 @@
+.burger-menu__line_type_bottom {
+  stroke-dasharray: 40 172;
+}
+
+.burger-menu_active .burger-menu__line_type_bottom {
+  stroke-dashoffset: -132px;
+}

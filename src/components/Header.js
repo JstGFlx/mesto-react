@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import logoPath from '../images/logo/Vector.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { BurgerMenuButton } from './BurgerMenuButton';
 
 function Header(props) {
   const history = useHistory();
@@ -11,6 +12,7 @@ function Header(props) {
     <header className='header'>
       <div className='header__container'>
         <img className='header__logo' src={logoPath} alt='логотип место' />
+        <BurgerMenuButton />
       </div>
       <div className='header__auth'>
         <p className='header__email'>{currentUser?.email}</p>

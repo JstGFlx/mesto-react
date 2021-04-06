@@ -1,0 +1,7 @@
+.burger-menu__line {
+  fill: none;
+  transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+  stroke: rgb(255, 255, 255);
+  stroke-width: 4.5;
+  stroke-linecap: round;
+}
