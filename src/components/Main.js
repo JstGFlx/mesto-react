@@ -5,7 +5,6 @@ import SkeletonLoader from './SkeletonLoader.js';
 
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
-  console.log(props);
 
   return (
     <main>
