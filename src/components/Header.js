@@ -8,7 +8,7 @@ function Header(props) {
     <header className='header'>
       <img className='header__logo' src={logoPath} alt='логотип место' />
       <div className='header__auth'>
-        <p className='header__email'>email@mail.com</p>
+        <p className='header__email'></p>
         <Link
           className={`header__link ${
             props.isLogined && 'header__link_logined'
