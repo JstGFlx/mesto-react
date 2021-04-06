@@ -2,7 +2,8 @@ class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._authorization = headers.authorization;
-    this._contentType = headers["Content-Type"];
+    this._headers = headers;
+    this._contentType = headers['Content-Type'];
   }
 
   getResponse(res) {
@@ -27,17 +28,14 @@ class Api {
 
   changeLikeCardStatus(cardID, like) {
     return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
-      method: like ? "PUT" : "DELETE",
-      headers: {
-        authorization: this._authorization,
-        "Content-Type": this._contentType,
-      },
+      method: like ? 'PUT' : 'DELETE',
+      headers: this._headers,
     }).then(this.getResponse);
   }
 
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
         authorization: this._authorization,
       },
@@ -46,32 +44,23 @@ class Api {
 
   pathUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: {
-        authorization: this._authorization,
-        "Content-Type": this._contentType,
-      },
+      method: 'PATCH',
+      headers: this._headers,
       body: JSON.stringify(data),
     }).then(this.getResponse);
   }
 
   patchAvatar(link) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
-      headers: {
-        authorization: this._authorization,
-        "Content-Type": this._contentType,
-      },
+      method: 'PATCH',
+      headers: this._headers,
       body: JSON.stringify(link),
     }).then(this.getResponse);
   }
   postNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
-      method: "POST",
-      headers: {
-        authorization: this._authorization,
-        "Content-Type": this._contentType,
-      },
+      method: 'POST',
+      headers: this._headers,
       body: JSON.stringify(data),
     }).then(this.getResponse);
   }
