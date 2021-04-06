@@ -225,7 +225,7 @@ function App() {
           onCardLike={handleCardLike}
           cards={cards}
           onCardDeleteClick={handleCardDeleteClick}
-        ></ProtectedRoute>
+        />
         <Route exact path='/'>
           {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
         </Route>
