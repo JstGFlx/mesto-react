@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import succesAlertPath from '../images/alert-succes.svg';
 import failureAlertPath from '../images/alert-failure.svg';
 
-export const AlertStatusPopup = (props) => {
+export const InfoTooltip = (props) => {
   const { isOpen, onClose } = props;
 
   useEffect(() => {

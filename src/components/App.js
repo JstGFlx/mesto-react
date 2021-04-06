@@ -12,7 +12,7 @@ import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
 import Register from './Register';
 import Login from './Login';
-import { AlertStatusPopup } from './AlertStatusPopup';
+import { InfoTooltip } from './InfoTooltip';
 import {
   Route,
   Switch,
@@ -28,7 +28,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(null);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
-  const [isAlertStatusPopup, setIsAlertStatusPopup] = useState(null);
+  const [isInfoTooltip, setIsInfoTooltip] = useState(null);
   const [isSendingData, setIsSendingData] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
@@ -49,7 +49,7 @@ function App() {
     setIsDeletePopupOpen(props);
   };
   const handleAlert = (status) => {
-    setIsAlertStatusPopup({ isOpen: true, status });
+    setIsInfoTooltip({ isOpen: true, status });
   };
   const handleCardClick = ({ name, link }) => {
     setIsImagePopupOpen(!isImagePopupOpen);
@@ -109,11 +109,11 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsDeletePopupOpen(null);
     setIsImagePopupOpen(false);
-    setIsAlertStatusPopup((state) => {
+    setIsInfoTooltip((state) => {
       return { ...state, isOpen: false };
     });
     setTimeout(() => {
-      setIsAlertStatusPopup(null);
+      setIsInfoTooltip(null);
       setSelectedCard(null);
     }, 150);
   };
@@ -234,7 +234,7 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-      <AlertStatusPopup isOpen={isAlertStatusPopup} onClose={closeAllPopups} />
+      <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
