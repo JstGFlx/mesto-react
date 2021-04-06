@@ -16,13 +16,13 @@ function Header(props) {
   return (
     <header
       className={`header ${
-        isMenuButtonOpen && props.isLogined ? 'header_active' : ''
-      } ${props.isLogined ? 'header_logged-in' : ''}`}
+        isMenuButtonOpen && props.isLoggedIn ? 'header_active' : ''
+      } ${props.isLoggedIn ? 'header_logged-in' : ''}`}
     >
       <div className='header__container'>
         <img
           className={`header__logo ${
-            props.isLogined ? 'header__logo_logged-in' : ''
+            props.isLoggedIn ? 'header__logo_logged-in' : ''
           }`}
           src={logoPath}
           alt='логотип место'
@@ -30,25 +30,25 @@ function Header(props) {
         <BurgerMenuButton
           onClick={handleMenuButtonClick}
           isClicked={isMenuButtonOpen}
-          isLoggedIn={props.isLogined}
+          isLoggedIn={props.isLoggedIn}
         />
       </div>
       <div
         className={`header__auth ${
-          props.isLogined ? 'header__auth_logged-in ' : ''
+          props.isLoggedIn ? 'header__auth_logged-in ' : ''
         }`}
       >
         <p className='header__email'>{currentUser?.email}</p>
         <Link
           className={`header__link ${
-            props.isLogined ? 'header__link_logined' : ''
+            props.isLoggedIn ? 'header__link_logined' : ''
           }`}
           to={`${
             history.location.pathname === '/sign-in' ? '/sign-up' : '/sign-in'
           }`}
           onClick={props.onSignOut}
         >
-          {props.isLogined
+          {props.isLoggedIn
             ? 'Выйти'
             : history.location.pathname === '/sign-in'
             ? 'Регистрация'
