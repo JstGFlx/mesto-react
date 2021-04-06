@@ -1,7 +1,6 @@
 class AuthApi {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
-    this._authorization = headers.authorization;
     this._headers = headers;
   }
 
@@ -22,6 +21,13 @@ class AuthApi {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),
+    }).then(this._getResponse);
+  }
+
+  getContent(JWT) {
+    return fetch(`${this._baseUrl}users/me`, {
+      method: 'GET',
+      headers: { ...this._headers, Authorization: `Bearer ${JWT}` },
     }).then(this._getResponse);
   }
 }

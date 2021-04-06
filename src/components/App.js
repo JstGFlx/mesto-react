@@ -4,7 +4,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import { showErrorMassage, api } from '../utils/utils';
+import { showErrorMassage, api, authApi } from '../utils/utils';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -13,7 +13,13 @@ import DeleteCardPopup from './DeleteCardPopup';
 import Register from './Register';
 import Login from './Login';
 import { AlertStatusPopup } from './AlertStatusPopup';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import {
+  Route,
+  Switch,
+  Redirect,
+  withRouter,
+  useHistory,
+} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 
 function App() {
@@ -27,6 +33,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState(null);
   const [loggedIn, setLoggeIn] = useState(false);
+  const history = useHistory();
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -135,6 +142,21 @@ function App() {
   const handleLogin = () => {
     setLoggeIn(true);
   };
+
+  const handleTokenCheck = () => {
+    const jwt = localStorage.getItem('token');
+    console.log(jwt);
+    if (jwt) {
+      authApi.getContent(jwt).then((res) => {
+        handleLogin();
+        history.push('/');
+      });
+    }
+  };
+
+  useEffect(() => {
+    handleTokenCheck();
+  }, []);
 
   useEffect(() => {
     if (loggedIn) {
