@@ -27,7 +27,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(null);
-  const [isImagePopupOpen, setIsImagePopupOpen] = useState(null);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isAlertStatusPopup, setIsAlertStatusPopup] = useState(null);
   const [isSendingData, setIsSendingData] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
@@ -46,6 +47,9 @@ function App() {
   };
   const handleCardDeleteClick = (props) => {
     setIsDeletePopupOpen(props);
+  };
+  const handleAlert = (status) => {
+    setIsAlertStatusPopup({ isOpen: true, status });
   };
   const handleCardClick = ({ name, link }) => {
     setIsImagePopupOpen(!isImagePopupOpen);
@@ -103,12 +107,17 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setIsDeletePopupOpen(false);
+    setIsDeletePopupOpen(null);
     setIsImagePopupOpen(false);
+    setIsAlertStatusPopup((state) => {
+      return { ...state, isOpen: false };
+    });
     setTimeout(() => {
+      setIsAlertStatusPopup(null);
       setSelectedCard(null);
     }, 150);
   };
+
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
@@ -203,7 +212,7 @@ function App() {
 
       <Switch>
         <Route path='/sign-up'>
-          <Register />
+          <Register onSubmit={handleAlert} />
         </Route>
         <Route path='/sign-in'>
           <Login onLogin={handleTokenCheck} />
@@ -225,7 +234,7 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-      <AlertStatusPopup />
+      <AlertStatusPopup isOpen={isAlertStatusPopup} onClose={closeAllPopups} />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}

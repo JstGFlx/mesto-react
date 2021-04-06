@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, withRouter, useHistory } from 'react-router-dom';
 import { authApi, showErrorMassage } from '../utils/utils';
 
-export const Register = () => {
+export const Register = (props) => {
   const [values, setValues] = useState({ password: '', email: '' });
   const history = useHistory();
 
@@ -22,8 +22,10 @@ export const Register = () => {
       .register(values)
       .then((res) => {
         history.push('/sign-in');
+        props.onSubmit(true);
       })
       .catch((err) => {
+        props.onSubmit(false);
         showErrorMassage(err);
       });
   };
