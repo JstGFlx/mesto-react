@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { authApi, showErrorMassage } from '../utils/utils';
 
 const Login = (props) => {
   const [values, setValues] = useState({ password: '', email: '' });
-  const history = useHistory();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({
@@ -23,7 +22,6 @@ const Login = (props) => {
         setValues({ password: '', email: '' });
         localStorage.setItem('token', res.token);
         props.onLogin();
-        history.push('/');
       })
       .catch((err) => {
         showErrorMassage(err);

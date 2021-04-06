@@ -1,27 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logoPath from '../images/logo/Vector.svg';
 import { Link, useHistory } from 'react-router-dom';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Header(props) {
   const history = useHistory();
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <header className='header'>
       <img className='header__logo' src={logoPath} alt='логотип место' />
       <div className='header__auth'>
-        <p className='header__email'></p>
+        <p className='header__email'>{currentUser?.email}</p>
         <Link
           className={`header__link ${
-            props.isLogined && 'header__link_logined'
+            props.isLogined ? 'header__link_logined' : ''
           }`}
           to={`${
             history.location.pathname === '/sign-in' ? '/sign-up' : '/sign-in'
           }`}
+          onClick={props.onSignOut}
         >
-          {history.location.pathname === '/'
+          {props.isLogined
             ? 'Выйти'
-            : '/sign-up'
+            : history.location.pathname === '/sign-in'
             ? 'Регистрация'
-            : 'sign-in'
+            : '/sign-up'
             ? 'Войти'
             : ''}
         </Link>

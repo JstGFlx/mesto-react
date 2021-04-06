@@ -32,7 +32,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState(null);
-  const [loggedIn, setLoggeIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const history = useHistory();
 
   const handleEditAvatarClick = () => {
@@ -140,17 +140,28 @@ function App() {
   };
 
   const handleLogin = () => {
-    setLoggeIn(true);
+    setLoggedIn(true);
   };
 
   const handleTokenCheck = () => {
     const jwt = localStorage.getItem('token');
-    console.log(jwt);
     if (jwt) {
       authApi.getContent(jwt).then((res) => {
+        setCurrentUser((state) => {
+          return { ...state, email: res.data.email };
+        });
         handleLogin();
         history.push('/');
       });
+    }
+  };
+
+  const signOut = () => {
+    if (loggedIn) {
+      localStorage.removeItem('token');
+      history.push('/sign-in');
+      setCurrentUser(null);
+      setLoggedIn(false);
     }
   };
 
@@ -176,7 +187,9 @@ function App() {
       api
         .getUserInfo()
         .then((res) => {
-          setCurrentUser(res);
+          setCurrentUser((state) => {
+            return { ...state, ...res };
+          });
         })
         .catch((err) => {
           showErrorMassage(err);
@@ -186,14 +199,14 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header isLogined={loggedIn} />
+      <Header isLogined={loggedIn} onSignOut={signOut} />
 
       <Switch>
         <Route path='/sign-up'>
           <Register />
         </Route>
         <Route path='/sign-in'>
-          <Login onLogin={handleLogin} />
+          <Login onLogin={handleTokenCheck} />
         </Route>
         <ProtectedRoute
           path='/'

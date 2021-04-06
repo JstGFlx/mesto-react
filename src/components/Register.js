@@ -21,7 +21,6 @@ export const Register = () => {
     authApi
       .register(values)
       .then((res) => {
-        console.log(res.data);
         history.push('/sign-in');
       })
       .catch((err) => {
