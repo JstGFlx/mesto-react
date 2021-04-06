@@ -4,6 +4,7 @@ import { authApi, showErrorMassage } from '../utils/utils';
 
 export const Register = (props) => {
   const [values, setValues] = useState({ password: '', email: '' });
+  const [isSendingData, setIsSendingData] = useState(false);
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -18,15 +19,20 @@ export const Register = (props) => {
     if (!values.password || !values.email) {
       return;
     }
+    setIsSendingData(true);
     authApi
       .register(values)
-      .then((res) => {
+      .then(() => {
         history.push('/sign-in');
         props.onSubmit(true);
       })
       .catch((err) => {
+        setIsSendingData(false);
         props.onSubmit(false);
         showErrorMassage(err);
+      })
+      .finally(() => {
+        setIsSendingData(false);
       });
   };
 
@@ -53,7 +59,7 @@ export const Register = (props) => {
       </div>
       <div className='auth__container'>
         <button className='btn btn_type_auth' type='submit'>
-          Зарегистрироваться
+          {isSendingData ? 'Регистрация...' : 'Зарегистрироваться'}
         </button>
         <Link className='auth__link' to='sign-in'>
           Уже зарегистрированы? Войти

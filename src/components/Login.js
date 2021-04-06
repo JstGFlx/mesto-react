@@ -4,6 +4,7 @@ import { authApi, showErrorMassage } from '../utils/utils';
 
 const Login = (props) => {
   const [values, setValues] = useState({ password: '', email: '' });
+  const [isSendingData, setIsSendingData] = useState(false);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({
@@ -16,6 +17,7 @@ const Login = (props) => {
     if (!values.password || !values.email) {
       return;
     }
+    setIsSendingData(true);
     authApi
       .login(values)
       .then((res) => {
@@ -25,6 +27,9 @@ const Login = (props) => {
       })
       .catch((err) => {
         showErrorMassage(err);
+      })
+      .finally(() => {
+        setIsSendingData(false);
       });
   };
 
@@ -51,7 +56,7 @@ const Login = (props) => {
       </div>
       <div className='auth__container'>
         <button className='btn btn_type_auth btn_margin_login' type='submit'>
-          Войти
+          {isSendingData ? 'Вход...' : 'Войти'}
         </button>
       </div>
     </form>
