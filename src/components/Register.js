@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { authApi } from '../utils/utils';
+import { Link, withRouter, useHistory } from 'react-router-dom';
+import { authApi, showErrorMassage } from '../utils/utils';
 
 export const Register = () => {
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordlValue] = useState('');
+  const [values, setValues] = useState({ password: '', email: '' });
+  const history = useHistory();
 
-  const handleChangeEmail = (event) => {
-    setEmailValue(event.target.value);
-  };
-  const handleChangePassword = (event) => {
-    setPasswordlValue(event.target.value);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
   const handleSubmt = (event) => {
     event.preventDefault();
-    authApi.register(passwordValue, emailValue);
+    if (!values.password || !values.email) {
+      return;
+    }
+    authApi
+      .register(values)
+      .then((res) => {
+        console.log(res.data);
+        history.push('/sign-in');
+      })
+      .catch((err) => {
+        showErrorMassage(err);
+      });
   };
 
   return (
@@ -26,16 +38,16 @@ export const Register = () => {
           type='email'
           name='email'
           placeholder='Email'
-          value={emailValue}
-          onChange={handleChangeEmail}
+          value={values.email}
+          onChange={handleChange}
         />
         <input
           className='auth__input'
           type='password'
           name='password'
           placeholder='Пароль'
-          onChange={handleChangePassword}
-          value={passwordValue}
+          onChange={handleChange}
+          value={values.password}
         />
       </div>
       <div className='auth__container'>

@@ -132,6 +132,10 @@ function App() {
       });
   };
 
+  const handleLogin = () => {
+    setLoggeIn(true);
+  };
+
   useEffect(() => {
     if (loggedIn) {
       api
@@ -143,7 +147,7 @@ function App() {
           showErrorMassage(err);
         });
     }
-  }, []);
+  }, [loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -156,7 +160,7 @@ function App() {
           showErrorMassage(err);
         });
     }
-  }, []);
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -167,7 +171,7 @@ function App() {
           <Register />
         </Route>
         <Route path='/sign-in'>
-          <Login />
+          <Login onLogin={handleLogin} />
         </Route>
         <ProtectedRoute
           path='/'

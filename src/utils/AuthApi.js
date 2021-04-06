@@ -9,19 +9,19 @@ class AuthApi {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  register(password, email) {
+  register(data) {
     return fetch(`${this._baseUrl}signup`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ password, email }),
+      body: JSON.stringify(data),
     }).then(this._getResponse);
   }
 
-  login(password, email) {
+  login(data) {
     return fetch(`${this._baseUrl}signin`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ password, email }),
+      body: JSON.stringify(data),
     }).then(this._getResponse);
   }
 }
