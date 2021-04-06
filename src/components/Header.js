@@ -2,16 +2,17 @@ import React from 'react';
 import logoPath from '../images/logo/Vector.svg';
 import { Link, useHistory } from 'react-router-dom';
 
-function Header() {
+function Header(props) {
   const history = useHistory();
-  console.log(history.location.pathname);
   return (
     <header className='header'>
       <img className='header__logo' src={logoPath} alt='логотип место' />
       <div className='header__auth'>
         <p className='header__email'>email@mail.com</p>
         <Link
-          className='header__link'
+          className={`header__link ${
+            props.isLogined && 'header__link_logined'
+          }`}
           to={`${
             history.location.pathname === '/sign-in' ? '/sign-up' : '/sign-in'
           }`}

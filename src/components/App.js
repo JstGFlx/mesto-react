@@ -164,7 +164,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header />
+      <Header isLogined={loggedIn} />
 
       <Switch>
         <Route path='/sign-up'>
