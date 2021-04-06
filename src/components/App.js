@@ -157,7 +157,6 @@ function App() {
     const jwt = localStorage.getItem('token');
     if (jwt) {
       authApi.getContent(jwt).then((res) => {
-        console.log(res);
         setEmail(res.data.email);
         handleLogin();
         history.push('/');
