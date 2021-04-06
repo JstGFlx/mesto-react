@@ -9,7 +9,9 @@ function Header(props) {
 
   return (
     <header className='header'>
-      <img className='header__logo' src={logoPath} alt='логотип место' />
+      <div className='header__container'>
+        <img className='header__logo' src={logoPath} alt='логотип место' />
+      </div>
       <div className='header__auth'>
         <p className='header__email'>{currentUser?.email}</p>
         <Link
