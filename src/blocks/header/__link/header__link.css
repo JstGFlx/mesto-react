@@ -18,9 +18,3 @@
     line-height: 17px;
   }
 }
-
-@media (max-width: 510px) {
-  .header__link {
-    margin: 16px 0 46px 0;
-  }
-}

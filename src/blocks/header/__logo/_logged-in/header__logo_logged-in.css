@@ -1,0 +1,5 @@
+@media (max-width: 510px) {
+  .header__logo_logged-in {
+    margin: 0 27px 28px;
+  }
+}

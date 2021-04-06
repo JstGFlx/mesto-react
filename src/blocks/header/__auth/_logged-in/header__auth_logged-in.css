@@ -1,0 +1,8 @@
+@media (max-width: 510px) {
+  .header__auth_logged-in {
+    margin: 0 0 27px 0;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #545454;
+  }
+}
