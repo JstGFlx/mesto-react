@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import logoPath from '../images/logo/Vector.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -12,6 +12,13 @@ function Header(props) {
   const handleMenuButtonClick = () => {
     setIsMenuButtonOpen(!isMenuButtonOpen);
   };
+
+  //код ниже сделан для того, чтобы когда пользователь разлогинивается а потом сразу логинится меню не было открыто
+  useEffect(() => {
+    if (!props.isLoggedIn) {
+      setIsMenuButtonOpen(false);
+    }
+  }, [props.isLoggedIn]);
 
   return (
     <header
