@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import logoPath from '../images/logo/Vector.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -8,9 +8,6 @@ function Header(props) {
   const history = useHistory();
   const currentUser = useContext(CurrentUserContext);
   const [isMenuButtonOpen, setIsMenuButtonOpen] = useState(false);
-  useEffect(() => {
-    console.log(props.isLogined);
-  }, [props.isLogined]);
 
   const handleMenuButtonClick = () => {
     setIsMenuButtonOpen(!isMenuButtonOpen);
