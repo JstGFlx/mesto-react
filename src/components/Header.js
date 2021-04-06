@@ -1,12 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import logoPath from '../images/logo/Vector.svg';
 import { Link, useHistory } from 'react-router-dom';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { BurgerMenuButton } from './BurgerMenuButton';
 
 function Header(props) {
   const history = useHistory();
-  const currentUser = useContext(CurrentUserContext);
   const [isMenuButtonOpen, setIsMenuButtonOpen] = useState(false);
 
   const handleMenuButtonClick = () => {
@@ -45,7 +43,7 @@ function Header(props) {
           props.isLoggedIn ? 'header__auth_logged-in ' : ''
         }`}
       >
-        <p className='header__email'>{currentUser?.email}</p>
+        <p className='header__email'>{props.email}</p>
         <Link
           className={`header__link ${
             props.isLoggedIn ? 'header__link_logined' : ''

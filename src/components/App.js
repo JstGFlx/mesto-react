@@ -32,6 +32,7 @@ function App() {
   const [isSendingData, setIsSendingData] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [email, setEmail] = useState(null);
   const [cards, setCards] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const history = useHistory();
@@ -156,9 +157,8 @@ function App() {
     const jwt = localStorage.getItem('token');
     if (jwt) {
       authApi.getContent(jwt).then((res) => {
-        setCurrentUser((state) => {
-          return { ...state, email: res.data.email };
-        });
+        console.log(res);
+        setEmail(res.data.email);
         handleLogin();
         history.push('/');
       });
@@ -169,7 +169,7 @@ function App() {
     if (loggedIn) {
       localStorage.removeItem('token');
       history.push('/sign-in');
-      setCurrentUser(null);
+      setEmail(null);
       setLoggedIn(false);
     }
   };
@@ -196,9 +196,7 @@ function App() {
       api
         .getUserInfo()
         .then((res) => {
-          setCurrentUser((state) => {
-            return { ...state, ...res };
-          });
+          setCurrentUser(res);
         })
         .catch((err) => {
           showErrorMassage(err);
@@ -208,7 +206,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header isLoggedIn={loggedIn} onSignOut={signOut} />
+      <Header isLoggedIn={loggedIn} onSignOut={signOut} email={email} />
 
       <Switch>
         <Route path='/sign-up'>
