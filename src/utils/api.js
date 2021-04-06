@@ -3,7 +3,6 @@ class Api {
     this._baseUrl = baseUrl;
     this._authorization = headers.authorization;
     this._headers = headers;
-    this._contentType = headers['Content-Type'];
   }
 
   getResponse(res) {
