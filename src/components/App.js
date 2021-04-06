@@ -10,9 +10,11 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
-import { Register } from './Register';
-import { Login } from './Login';
+import Register from './Register';
+import Login from './Login';
 import { AlertStatusPopup } from './AlertStatusPopup';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -24,6 +26,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState(null);
+  const [loggedIn, setLoggeIn] = useState(true);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -154,19 +157,32 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
-      {/* <Main
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}
-        onCardLike={handleCardLike}
-        cards={cards}
-        onCardDeleteClick={handleCardDeleteClick}
-      /> */}
-      <Register />
-      {/*  <Login /> */}
-      <AlertStatusPopup />
+
+      <Switch>
+        <Route path='/sign-up'>
+          <Register />
+        </Route>
+        <Route path='/sign-in'>
+          <Login />
+        </Route>
+        <ProtectedRoute
+          path='/'
+          loggedIn={loggedIn}
+          component={Main}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          cards={cards}
+          onCardDeleteClick={handleCardDeleteClick}
+        ></ProtectedRoute>
+        <Route exact path='/'>
+          {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+        </Route>
+      </Switch>
       <Footer />
+      <AlertStatusPopup />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
@@ -200,4 +216,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

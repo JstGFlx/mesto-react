@@ -1,11 +1,13 @@
-.auth__text {
+.auth__link {
+  margin: 14px 0;
   color: white;
   font-size: 14px;
   line-height: 17px;
   cursor: pointer;
+  text-decoration: none;
   transition: opacity 0.3s ease-in-out;
 }
 
-.auth__text:hover {
+.auth__link:hover {
   opacity: 0.6;
 }

@@ -1,18 +1,19 @@
-.header__login {
+.header__link {
   margin: 0;
   font-size: 18px;
   line-height: 22px;
   color: white;
   cursor: pointer;
+  text-decoration: none;
   transition: opacity 0.3s ease-in-out;
 }
 
-.header__login:hover {
+.header__link:hover {
   opacity: 0.6;
 }
 
 @media (max-width: 692px) {
-  .header__login {
+  .header__link {
     font-size: 14px;
     line-height: 17px;
   }

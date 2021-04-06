@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
 export const Register = () => {
   return (
@@ -20,8 +21,12 @@ export const Register = () => {
       </div>
       <div className='auth__container'>
         <button className='btn btn_type_auth'>Зарегистрироваться</button>
-        <p className='auth__text'>Уже зарегистрированы? Войти</p>
+        <Link className='auth__link' to='sign-in'>
+          Уже зарегистрированы? Войти
+        </Link>
       </div>
     </section>
   );
 };
+
+export default withRouter(Register);

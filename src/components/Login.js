@@ -1,6 +1,7 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-export const Login = () => {
+const Login = () => {
   return (
     <section className='auth'>
       <div className='auth__container'>
@@ -19,9 +20,10 @@ export const Login = () => {
         />
       </div>
       <div className='auth__container'>
-        <button className='btn btn_type_auth'>Войти</button>
-        <p className='auth__text' />⠀
+        <button className='btn btn_type_auth btn_margin_login'>Войти</button>
       </div>
     </section>
   );
 };
+
+export default withRouter(Login);
