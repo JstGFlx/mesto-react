@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 function Header() {
   const history = useHistory();
+  console.log(history.location.pathname);
   return (
     <header className='header'>
       <img className='header__logo' src={logoPath} alt='логотип место' />
@@ -15,7 +16,13 @@ function Header() {
             history.location.pathname === '/sign-in' ? '/sign-up' : '/sign-in'
           }`}
         >
-          {history.location.pathname === '/sign-in' ? 'Регистрация' : 'Войти'}
+          {history.location.pathname === '/'
+            ? 'Выйти'
+            : '/sign-up'
+            ? 'Регистрация'
+            : 'sign-in'
+            ? 'Войти'
+            : ''}
         </Link>
       </div>
     </header>
