@@ -58,7 +58,11 @@ export const Register = (props) => {
         />
       </div>
       <div className='auth__container'>
-        <button className='btn btn_type_auth' type='submit'>
+        <button
+          className='btn btn_type_auth'
+          type='submit'
+          disabled={isSendingData}
+        >
           {isSendingData ? 'Регистрация...' : 'Зарегистрироваться'}
         </button>
         <Link className='auth__link' to='sign-in'>

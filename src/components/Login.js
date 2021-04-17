@@ -54,7 +54,11 @@ const Login = (props) => {
         />
       </div>
       <div className='auth__container'>
-        <button className='btn btn_type_auth btn_margin_login' type='submit'>
+        <button
+          className='btn btn_type_auth btn_margin_login'
+          type='submit'
+          disabled={isSendingData}
+        >
           {isSendingData ? 'Вход...' : 'Войти'}
         </button>
       </div>
