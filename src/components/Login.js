@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import { authApi, showErrorMassage } from '../utils/utils';
 
 const Login = (props) => {
@@ -63,4 +62,4 @@ const Login = (props) => {
   );
 };
 
-export default withRouter(Login);
+export default Login;

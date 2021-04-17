@@ -13,13 +13,7 @@ import DeleteCardPopup from './DeleteCardPopup';
 import Register from './Register';
 import Login from './Login';
 import { InfoTooltip } from './InfoTooltip';
-import {
-  Route,
-  Switch,
-  Redirect,
-  withRouter,
-  useHistory,
-} from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 
 function App() {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, withRouter, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { authApi, showErrorMassage } from '../utils/utils';
 
 export const Register = (props) => {
@@ -69,4 +69,4 @@ export const Register = (props) => {
   );
 };
 
-export default withRouter(Register);
+export default Register;
