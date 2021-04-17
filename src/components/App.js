@@ -226,7 +226,7 @@ function App() {
           cards={cards}
           onCardDeleteClick={handleCardDeleteClick}
         />
-        <Route exact path='/'>
+        <Route path='/'>
           {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
         </Route>
       </Switch>
