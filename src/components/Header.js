@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import logoPath from '../images/logo/Vector.svg';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import { BurgerMenuButton } from './BurgerMenuButton';
 
 function Header(props) {
-  const history = useHistory();
   const [isMenuButtonOpen, setIsMenuButtonOpen] = useState(false);
 
   const handleMenuButtonClick = () => {
@@ -43,24 +42,28 @@ function Header(props) {
           props.isLoggedIn ? 'header__auth_logged-in ' : ''
         }`}
       >
-        <p className='header__email'>{props.email}</p>
-        <Link
-          className={`header__link ${
-            props.isLoggedIn ? 'header__link_logined' : ''
-          }`}
-          to={`${
-            history.location.pathname === '/sign-in' ? '/sign-up' : '/sign-in'
-          }`}
-          onClick={props.onSignOut}
-        >
-          {props.isLoggedIn
-            ? 'Выйти'
-            : history.location.pathname === '/sign-in'
-            ? 'Регистрация'
-            : '/sign-up'
-            ? 'Войти'
-            : ''}
-        </Link>
+        <Switch>
+          <Route path='/sign-up'>
+            <Link className='header__link' to='sign-in'>
+              Войти
+            </Link>
+          </Route>
+          <Route path='/sign-in'>
+            <Link className='header__link' to='sign-up'>
+              Регистрация
+            </Link>
+          </Route>
+          <Route exact path='/'>
+            <p className='header__email'>{props.email}</p>
+            <Link
+              className='header__link header__link_logined'
+              to='signin'
+              onClick={props.onSignOut}
+            >
+              Выйти
+            </Link>
+          </Route>
+        </Switch>
       </div>
     </header>
   );

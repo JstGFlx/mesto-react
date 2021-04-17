@@ -158,7 +158,7 @@ function App() {
     }
   };
 
-  const signOut = () => {
+  const handleSignOut = () => {
     if (loggedIn) {
       localStorage.removeItem('token');
       history.push('/sign-in');
@@ -199,7 +199,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header isLoggedIn={loggedIn} onSignOut={signOut} email={email} />
+      <Header isLoggedIn={loggedIn} onSignOut={handleSignOut} email={email} />
 
       <Switch>
         <Route path='/sign-up'>
