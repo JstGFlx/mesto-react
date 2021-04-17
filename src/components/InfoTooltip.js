@@ -14,7 +14,7 @@ export const InfoTooltip = (props) => {
       if (event.key === 'Escape') onClose();
     };
 
-    if (isOpen) {
+    if (isOpen?.isOpen) {
       window.addEventListener('keydown', handleEcsacePush);
       window.addEventListener('mousedown', handleOutsideClick);
     }
@@ -40,12 +40,10 @@ export const InfoTooltip = (props) => {
         <img
           className='popup__status-image'
           src={isOpen?.status ? succesAlertPath : failureAlertPath}
-          alt='Успешная регистрация'
+          alt='Статус действия'
         />
         <h2 className='popup__title popup__title_type_alert'>
-          {isOpen?.status
-            ? 'Вы успешно зарегистрировались!'
-            : 'Что-то пошло не так!Попробуйте ещё раз.'}
+          {props.massage}
         </h2>
       </figure>
     </div>

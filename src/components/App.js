@@ -225,7 +225,15 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-      <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} />
+      <InfoTooltip
+        isOpen={isInfoTooltip}
+        onClose={closeAllPopups}
+        massage={
+          isInfoTooltip?.status
+            ? 'Вы успешно зарегистрировались!'
+            : 'Что-то пошло не так!Попробуйте ещё раз.'
+        }
+      />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
