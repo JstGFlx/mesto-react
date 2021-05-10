@@ -27,7 +27,8 @@ class AuthApi {
   getContent(JWT) {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'GET',
-      headers: { ...this._headers, Authorization: `Bearer ${JWT}` },
+      headers: this._headers,
+      credentials: 'include',
     }).then(this._getResponse);
   }
 }
