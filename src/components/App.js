@@ -176,7 +176,7 @@ function App() {
       api
         .getInitialCards()
         .then((res) => {
-          setCards(res);
+          setCards(res.data);
         })
         .catch((err) => {
           showErrorMassage(err);
@@ -189,7 +189,7 @@ function App() {
       api
         .getUserInfo()
         .then((res) => {
-          setCurrentUser(res);
+          setCurrentUser(res.data);
         })
         .catch((err) => {
           showErrorMassage(err);
