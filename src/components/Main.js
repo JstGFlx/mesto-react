@@ -73,7 +73,8 @@ function Main(props) {
         )}
 
         {props.cards &&
-          props?.cards?.map((card) => {
+          currentUser &&
+          props.cards.reverse().map((card) => {
             return (
               <Card
                 key={card._id}
