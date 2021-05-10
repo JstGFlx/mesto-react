@@ -21,6 +21,7 @@ class AuthApi {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),
+      credentials: 'include',
     }).then(this._getResponse);
   }
 
