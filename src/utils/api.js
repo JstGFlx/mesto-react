@@ -10,19 +10,11 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        authorization: this._authorization,
-      },
-    }).then(this.getResponse);
+    return fetch(`${this._baseUrl}/cards`).then(this.getResponse);
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        authorization: this._authorization,
-      },
-    }).then(this.getResponse);
+    return fetch(`${this._baseUrl}/users/me`).then(this.getResponse);
   }
 
   changeLikeCardStatus(cardID, like) {
@@ -35,9 +27,6 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._authorization,
-      },
     }).then(this.getResponse);
   }
 
