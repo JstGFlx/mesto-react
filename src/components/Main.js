@@ -73,7 +73,7 @@ function Main(props) {
         )}
 
         {props.cards &&
-          props.cards.map((card) => {
+          props?.cards?.map((card) => {
             return (
               <Card
                 key={card._id}
