@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../index.css';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -13,8 +13,8 @@ import DeleteCardPopup from './DeleteCardPopup';
 import Register from './Register';
 import Login from './Login';
 import { InfoTooltip } from './InfoTooltip';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
+import '../index.css';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -58,7 +58,7 @@ function App() {
     api
       .pathUserInfo(data)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -73,7 +73,7 @@ function App() {
     api
       .patchAvatar(data)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -88,7 +88,7 @@ function App() {
     api
       .postNewCard(data)
       .then((res) => {
-        setCards([res, ...cards]);
+        setCards([res.data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
@@ -114,13 +114,12 @@ function App() {
   };
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) =>
-          state?.map((c) => (c._id === card._id ? newCard : c))
+          state.map((c) => (c._id === card._id ? newCard.data : c))
         );
       })
       .catch((err) => {
@@ -148,19 +147,14 @@ function App() {
   };
 
   const handleTokenCheck = () => {
-    const jwt = localStorage.getItem('token');
-    if (jwt) {
-      authApi.getContent(jwt).then((res) => {
-        setEmail(res.data.email);
-        handleLogin();
-        history.push('/');
-      });
-    }
+    authApi.getContent().then((res) => {
+      setEmail(res.data.email);
+      handleLogin();
+      history.push('/');
+    });
   };
-
   const handleSignOut = () => {
     if (loggedIn) {
-      localStorage.removeItem('token');
       history.push('/sign-in');
       setEmail(null);
       setLoggedIn(false);
@@ -176,7 +170,7 @@ function App() {
       api
         .getInitialCards()
         .then((res) => {
-          setCards(res.data);
+          setCards(res.data.reverse());
         })
         .catch((err) => {
           showErrorMassage(err);
