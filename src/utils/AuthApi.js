@@ -25,7 +25,7 @@ class AuthApi {
     }).then(this._getResponse);
   }
 
-  getContent(JWT) {
+  getContent() {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'GET',
       headers: this._headers,
