@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { authApi, showErrorMassage } from '../utils/utils';
+import { api, showErrorMassage } from '../utils/utils';
 
 export const Register = (props) => {
   const [values, setValues] = useState({ password: '', email: '' });
@@ -20,7 +20,7 @@ export const Register = (props) => {
       return;
     }
     setIsSendingData(true);
-    authApi
+    api
       .register(values)
       .then(() => {
         history.push('/sign-in');

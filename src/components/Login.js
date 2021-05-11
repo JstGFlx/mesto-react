@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authApi, showErrorMassage } from '../utils/utils';
+import { api, showErrorMassage } from '../utils/utils';
 
 const Login = (props) => {
   const [values, setValues] = useState({ password: '', email: '' });
@@ -17,7 +17,7 @@ const Login = (props) => {
       return;
     }
     setIsSendingData(true);
-    authApi
+    api
       .login(values)
       .then((res) => {
         setValues({ password: '', email: '' });

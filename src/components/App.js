@@ -4,7 +4,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import { showErrorMassage, api, authApi } from '../utils/utils';
+import { showErrorMassage, api } from '../utils/utils';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -147,7 +147,7 @@ function App() {
   };
 
   const handleTokenCheck = () => {
-    authApi.getContent().then((res) => {
+    api.getContent().then((res) => {
       setEmail(res.data.email);
       handleLogin();
       history.push('/');
@@ -155,7 +155,7 @@ function App() {
   };
   const handleSignOut = () => {
     if (loggedIn) {
-      authApi.logout().then(() => {
+      api.logout().then(() => {
         history.push('/sign-in');
         setEmail(null);
         setLoggedIn(false);
