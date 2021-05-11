@@ -25,6 +25,12 @@ class AuthApi {
     }).then(this._getResponse);
   }
 
+  logout() {
+    return fetch(`${this._baseUrl}users/signout`, {
+      credentials: 'include',
+    }).then(this._getResponse);
+  }
+
   getContent() {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'GET',

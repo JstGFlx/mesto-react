@@ -155,9 +155,11 @@ function App() {
   };
   const handleSignOut = () => {
     if (loggedIn) {
-      history.push('/sign-in');
-      setEmail(null);
-      setLoggedIn(false);
+      authApi.logout().then(() => {
+        history.push('/sign-in');
+        setEmail(null);
+        setLoggedIn(false);
+      });
     }
   };
 
