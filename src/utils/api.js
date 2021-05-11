@@ -1,7 +1,6 @@
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
-    this._authorization = headers.authorization;
     this._headers = headers;
   }
 
