@@ -43,7 +43,7 @@ export const InfoTooltip = (props) => {
           alt='Статус действия'
         />
         <h2 className='popup__title popup__title_type_alert'>
-          {props.massage}
+          {props.message}
         </h2>
       </figure>
     </div>

@@ -7,6 +7,6 @@ export const api = new Api({
   },
 });
 
-export const showErrorMassage = (err) => {
+export const showErrorMessage = (err) => {
   console.error(err);
 };

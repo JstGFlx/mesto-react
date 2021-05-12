@@ -4,7 +4,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import { showErrorMassage, api } from '../utils/utils';
+import { showErrorMessage, api } from '../utils/utils';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -43,8 +43,8 @@ function App() {
   const handleCardDeleteClick = (props) => {
     setIsDeletePopupOpen(props);
   };
-  const handleAlert = (massage, status) => {
-    setIsInfoTooltip({ isOpen: true, massage, status });
+  const handleAlert = (message, status) => {
+    setIsInfoTooltip({ isOpen: true, message, status });
   };
   const handleCardClick = ({ name, link }) => {
     setIsImagePopupOpen(!isImagePopupOpen);
@@ -60,7 +60,7 @@ function App() {
       setCurrentUser(response.data);
       closeAllPopups();
     } catch (err) {
-      handleAlert(err.massage);
+      handleAlert(err.message);
     } finally {
       setIsSendingData(false);
     }
@@ -73,7 +73,7 @@ function App() {
       setCurrentUser(response.data);
       closeAllPopups();
     } catch (err) {
-      handleAlert(err.massage);
+      handleAlert(err.message);
     } finally {
       setIsSendingData(false);
     }
@@ -86,7 +86,7 @@ function App() {
       setCards([response.data, ...cards]);
       closeAllPopups();
     } catch (err) {
-      handleAlert(err.massage);
+      handleAlert(err.message);
     } finally {
       setIsSendingData(false);
     }
@@ -100,7 +100,7 @@ function App() {
         state.map((c) => (c._id === card._id ? response.data : c))
       );
     } catch (err) {
-      handleAlert(err.massage);
+      handleAlert(err.message);
     }
   };
 
@@ -111,7 +111,7 @@ function App() {
       setCards((state) => state.filter((c) => c._id !== _id));
       closeAllPopups();
     } catch (err) {
-      handleAlert(err.massage);
+      handleAlert(err.message);
     } finally {
       setIsSendingData(false);
     }
@@ -140,7 +140,7 @@ function App() {
         setEmail(null);
         setLoggedIn(false);
       } catch (err) {
-        handleAlert(err.massage);
+        handleAlert(err.message);
       }
     }
   };
@@ -172,7 +172,7 @@ function App() {
           setCards(res.data.reverse());
         })
         .catch((err) => {
-          showErrorMassage(err);
+          showErrorMessage(err);
         });
     }
   }, [loggedIn]);
@@ -185,7 +185,7 @@ function App() {
           setCurrentUser(res.data);
         })
         .catch((err) => {
-          showErrorMassage(err);
+          showErrorMessage(err);
         });
     }
   }, [loggedIn]);
@@ -221,7 +221,7 @@ function App() {
       <InfoTooltip
         isOpen={isInfoTooltip}
         onClose={closeAllPopups}
-        massage={isInfoTooltip?.massage}
+        message={isInfoTooltip?.message}
         status={isInfoTooltip?.status}
       />
       <EditProfilePopup
