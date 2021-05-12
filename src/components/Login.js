@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { api, showErrorMassage } from '../utils/utils';
+import { api } from '../utils/utils';
 
 const Login = (props) => {
   const [values, setValues] = useState({ password: '', email: '' });
@@ -11,29 +11,26 @@ const Login = (props) => {
       [name]: value,
     });
   };
-  const handleSubmt = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!values.password || !values.email) {
       return;
     }
     setIsSendingData(true);
-    api
-      .login(values)
-      .then((res) => {
-        setValues({ password: '', email: '' });
-        localStorage.setItem('token', res.token);
-        props.onLogin();
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      })
-      .finally(() => {
-        setIsSendingData(false);
-      });
+    try {
+      const response = await api.login(values);
+      setValues({ password: '', email: '' });
+      localStorage.setItem('token', response.token);
+      props.onLogin();
+    } catch (err) {
+      props.onAlert(err.message);
+    } finally {
+      setIsSendingData(false);
+    }
   };
 
   return (
-    <form className='auth' onSubmit={handleSubmt}>
+    <form className='auth' onSubmit={handleSubmit}>
       <div className='auth__container'>
         <h2 className='auth__title'>Вход</h2>
         <input

@@ -53,51 +53,98 @@ function App() {
       link: link,
     });
   };
-  const handleUpdateUser = (data) => {
+  const handleUpdateUser = async (data) => {
     setIsSendingData(!isSendingData);
-    api
-      .pathUserInfo(data)
-      .then((res) => {
-        setCurrentUser(res.data);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      })
-      .finally(() => {
-        setIsSendingData(false);
-      });
+    try {
+      const response = await api.pathUserInfo(data);
+      setCurrentUser(response.data);
+      closeAllPopups();
+    } catch (err) {
+      handleAlert(err.massage);
+    } finally {
+      setIsSendingData(false);
+    }
   };
-  const handleUpdateAvatar = (data) => {
+
+  const handleUpdateAvatar = async (data) => {
     setIsSendingData(!isSendingData);
-    api
-      .patchAvatar(data)
-      .then((res) => {
-        setCurrentUser(res.data);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      })
-      .finally(() => {
-        setIsSendingData(false);
-      });
+    try {
+      const response = await api.patchAvatar(data);
+      setCurrentUser(response.data);
+      closeAllPopups();
+    } catch (err) {
+      handleAlert(err.massage);
+    } finally {
+      setIsSendingData(false);
+    }
   };
-  const handleAddPlaceSubmit = (data) => {
+
+  const handleAddPlaceSubmit = async (data) => {
     setIsSendingData(!isSendingData);
-    api
-      .postNewCard(data)
-      .then((res) => {
-        setCards([res.data, ...cards]);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      })
-      .finally(() => {
-        setIsSendingData(false);
-      });
+    try {
+      const response = await api.postNewCard(data);
+      setCards([response.data, ...cards]);
+      closeAllPopups();
+    } catch (err) {
+      handleAlert(err.massage);
+    } finally {
+      setIsSendingData(false);
+    }
   };
+
+  const handleCardLike = async (card) => {
+    const isLiked = card.likes.some((i) => i === currentUser._id);
+    try {
+      const response = await api.changeLikeCardStatus(card._id, !isLiked);
+      setCards((state) =>
+        state.map((c) => (c._id === card._id ? response.data : c))
+      );
+    } catch (err) {
+      handleAlert(err.massage);
+    }
+  };
+
+  const handleCardDelete = async (_id) => {
+    setIsSendingData(!isSendingData);
+    try {
+      await api.deleteCard(_id);
+      setCards((state) => state.filter((c) => c._id !== _id));
+      closeAllPopups();
+    } catch (err) {
+      handleAlert(err.massage);
+    } finally {
+      setIsSendingData(false);
+    }
+  };
+
+  const handleLogin = () => {
+    setLoggedIn(true);
+  };
+
+  const handleTokenCheck = async () => {
+    try {
+      const response = await api.getContent();
+      setEmail(response.data.email);
+      handleLogin();
+      history.push('/');
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const handleSignOut = async () => {
+    if (loggedIn) {
+      try {
+        await api.logout();
+        history.push('/sign-in');
+        setEmail(null);
+        setLoggedIn(false);
+      } catch (err) {
+        handleAlert(err.massage);
+      }
+    }
+  };
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -111,62 +158,6 @@ function App() {
       setIsInfoTooltip(null);
       setSelectedCard(null);
     }, 150);
-  };
-
-  const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i === currentUser._id);
-    api
-      .changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard.data : c))
-        );
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      });
-  };
-  const handleCardDelete = (_id) => {
-    setIsSendingData(!isSendingData);
-    api
-      .deleteCard(_id)
-      .then(() => {
-        setCards((state) => state.filter((c) => c._id !== _id));
-        closeAllPopups();
-      })
-      .catch((err) => {
-        showErrorMassage(err);
-      })
-      .finally(() => {
-        setIsSendingData(false);
-      });
-  };
-
-  const handleLogin = () => {
-    setLoggedIn(true);
-  };
-
-  const handleTokenCheck = () => {
-    api
-      .getContent()
-      .then((res) => {
-        setEmail(res.data.email);
-        handleLogin();
-        history.push('/');
-      })
-      .catch(console.log);
-  };
-  const handleSignOut = () => {
-    if (loggedIn) {
-      api
-        .logout()
-        .then(() => {
-          history.push('/sign-in');
-          setEmail(null);
-          setLoggedIn(false);
-        })
-        .catch((err) => console.log);
-    }
   };
 
   useEffect(() => {
@@ -208,7 +199,7 @@ function App() {
           <Register onSubmit={handleAlert} />
         </Route>
         <Route path='/sign-in'>
-          <Login onLogin={handleTokenCheck} />
+          <Login onLogin={handleTokenCheck} onAlert={handleAlert} />
         </Route>
         <ProtectedRoute
           path='/'

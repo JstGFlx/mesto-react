@@ -8,5 +8,5 @@
   background-image: url('../../../images/Trash.svg');
   background-color: transparent;
   display: none;
-  z-index: 2;
+  z-index: 1;
 }
