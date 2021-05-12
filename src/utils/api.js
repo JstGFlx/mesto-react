@@ -4,8 +4,9 @@ class Api {
     this._headers = headers;
   }
 
-  getResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  async getResponse(res) {
+    const response = await res.json();
+    return res.ok ? response : Promise.reject(response);
   }
 
   getInitialCards() {
@@ -66,7 +67,7 @@ class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then(this._getResponse);
+    }).then(this.getResponse);
   }
 
   login(data) {
@@ -75,13 +76,13 @@ class Api {
       headers: this._headers,
       body: JSON.stringify(data),
       credentials: 'include',
-    }).then(this._getResponse);
+    }).then(this.getResponse);
   }
 
   logout() {
     return fetch(`${this._baseUrl}/users/signout`, {
       credentials: 'include',
-    }).then(this._getResponse);
+    }).then(this.getResponse);
   }
 
   getContent() {
@@ -89,11 +90,7 @@ class Api {
       method: 'GET',
       headers: this._headers,
       credentials: 'include',
-    }).then(this._getResponse);
-  }
-
-  _getResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    }).then(this.getResponse);
   }
 }
 

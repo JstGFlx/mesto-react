@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { api, showErrorMassage } from '../utils/utils';
+import { api } from '../utils/utils';
 
 export const Register = (props) => {
   const [values, setValues] = useState({ password: '', email: '' });
@@ -14,30 +14,25 @@ export const Register = (props) => {
       [name]: value,
     });
   };
-  const handleSubmt = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!values.password || !values.email) {
       return;
     }
     setIsSendingData(true);
-    api
-      .register(values)
-      .then(() => {
-        history.push('/sign-in');
-        props.onSubmit(true);
-      })
-      .catch((err) => {
-        setIsSendingData(false);
-        props.onSubmit(false);
-        showErrorMassage(err);
-      })
-      .finally(() => {
-        setIsSendingData(false);
-      });
+    try {
+      await api.register(values);
+      history.push('/sign-in');
+      props.onSubmit('Вы успешно зарегистрировались!', true);
+    } catch (err) {
+      props.onSubmit(err.message);
+    } finally {
+      setIsSendingData(false);
+    }
   };
 
   return (
-    <form className='auth' onSubmit={handleSubmt}>
+    <form className='auth' onSubmit={handleSubmit}>
       <div className='auth__container'>
         <h2 className='auth__title'>Регистрация</h2>
         <input

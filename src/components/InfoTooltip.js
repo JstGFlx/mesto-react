@@ -3,7 +3,7 @@ import succesAlertPath from '../images/alert-succes.svg';
 import failureAlertPath from '../images/alert-failure.svg';
 
 export const InfoTooltip = (props) => {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, status } = props;
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -39,7 +39,7 @@ export const InfoTooltip = (props) => {
         />
         <img
           className='popup__status-image'
-          src={isOpen?.status ? succesAlertPath : failureAlertPath}
+          src={status ? succesAlertPath : failureAlertPath}
           alt='Статус действия'
         />
         <h2 className='popup__title popup__title_type_alert'>

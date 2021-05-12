@@ -43,8 +43,8 @@ function App() {
   const handleCardDeleteClick = (props) => {
     setIsDeletePopupOpen(props);
   };
-  const handleAlert = (status) => {
-    setIsInfoTooltip({ isOpen: true, status });
+  const handleAlert = (massage, status) => {
+    setIsInfoTooltip({ isOpen: true, massage, status });
   };
   const handleCardClick = ({ name, link }) => {
     setIsImagePopupOpen(!isImagePopupOpen);
@@ -147,19 +147,25 @@ function App() {
   };
 
   const handleTokenCheck = () => {
-    api.getContent().then((res) => {
-      setEmail(res.data.email);
-      handleLogin();
-      history.push('/');
-    });
+    api
+      .getContent()
+      .then((res) => {
+        setEmail(res.data.email);
+        handleLogin();
+        history.push('/');
+      })
+      .catch(console.log);
   };
   const handleSignOut = () => {
     if (loggedIn) {
-      api.logout().then(() => {
-        history.push('/sign-in');
-        setEmail(null);
-        setLoggedIn(false);
-      });
+      api
+        .logout()
+        .then(() => {
+          history.push('/sign-in');
+          setEmail(null);
+          setLoggedIn(false);
+        })
+        .catch((err) => console.log);
     }
   };
 
@@ -224,11 +230,8 @@ function App() {
       <InfoTooltip
         isOpen={isInfoTooltip}
         onClose={closeAllPopups}
-        massage={
-          isInfoTooltip?.status
-            ? 'Вы успешно зарегистрировались!'
-            : 'Что-то пошло не так!Попробуйте ещё раз.'
-        }
+        massage={isInfoTooltip?.massage}
+        status={isInfoTooltip?.status}
       />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
