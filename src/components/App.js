@@ -4,7 +4,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import { showErrorMessage, api } from '../utils/utils';
+import { showErrorMassage, api } from '../utils/utils';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -172,7 +172,7 @@ function App() {
           setCards(res.data.reverse());
         })
         .catch((err) => {
-          showErrorMessage(err);
+          handleAlert(err.message);
         });
     }
   }, [loggedIn]);
@@ -185,7 +185,7 @@ function App() {
           setCurrentUser(res.data);
         })
         .catch((err) => {
-          showErrorMessage(err);
+          handleAlert(err.message);
         });
     }
   }, [loggedIn]);

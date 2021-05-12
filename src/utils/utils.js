@@ -1,12 +1,12 @@
 import Api from './api';
 
 export const api = new Api({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.jstgflx.nomoredomains.club',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-export const showErrorMessage = (err) => {
+export const showErrorMassage = (err) => {
   console.error(err);
 };
