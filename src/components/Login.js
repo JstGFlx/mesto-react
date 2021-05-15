@@ -18,9 +18,8 @@ const Login = (props) => {
     }
     setIsSendingData(true);
     try {
-      const response = await api.login(values);
+      await api.login(values);
       setValues({ password: '', email: '' });
-      localStorage.setItem('token', response.token);
       props.onLogin();
     } catch (err) {
       props.onAlert(err.message);
