@@ -6,7 +6,3 @@ export const api = new Api({
     'Content-Type': 'application/json',
   },
 });
-
-export const showErrorMassage = (err) => {
-  console.error(err);
-};
